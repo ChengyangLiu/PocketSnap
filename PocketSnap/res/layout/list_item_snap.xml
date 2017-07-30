@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/essay_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical" >
+	
+	<TextView
+        android:id="@+id/title_tv"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="就要吃小鱼干" />
+
+	<TextView
+	    android:id="@+id/publish_date"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginStart="150dp"
+	    android:layout_marginLeft="150dp"
+	    android:textSize="12sp"
+	    android:layout_marginTop="10dp"
+	    android:text="2017年10月25日" />
+
+	<ImageView
+	    android:id="@+id/photo"
+	    android:layout_width="300dp"
+	    android:layout_height="300dp"
+	    android:layout_marginTop="10dp"
+	    android:layout_marginBottom="10dp"
+	    android:layout_gravity="center"
+	    android:src="@drawable/loading" />
+
+	<TextView
+	    android:id="@+id/content"
+	    android:layout_width="300dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:text="这是一篇测试图文，哈哈哈哈哈哈"
+	    android:textSize="16sp" />
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" 
+	    android:layout_marginTop="10dp"
+	    android:layout_gravity="center"
+	    android:gravity="center"
+	    android:layout_marginBottom="10dp"
+	    >
+
+		<TextView
+		    android:id="@+id/textView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="拍客：" />
+
+		<TextView
+		    android:id="@+id/author_name"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginRight="60dp"
+		    android:text="小鱼干" />
+
+		<ImageView
+		    android:id="@+id/likes_iv"
+		    android:contentDescription="@string/likes"
+		    android:layout_width="15dp"
+		    android:layout_height="15dp"
+		    android:layout_marginRight="3dp"
+		    android:src="@drawable/like_icon" />
+
+		<TextView
+		    android:id="@+id/likes_num"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginRight="8dp"
+		    android:text="620" />
+
+		<ImageView
+		    android:id="@+id/comments_iv"
+		     android:contentDescription="@string/comments"
+		    android:layout_width="15dp"
+		    android:layout_height="15dp"
+		    android:layout_marginRight="3dp"
+		    android:src="@drawable/comment_icon" />
+
+		<TextView
+		    android:id="@+id/comments_num"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="125" />
+
+	</LinearLayout>
+    
+</LinearLayout>

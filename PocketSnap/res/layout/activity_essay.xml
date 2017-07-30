@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fffbf0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+	
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" 
+	    android:layout_marginTop="20dp"
+	    android:layout_marginBottom="20dp"
+	    android:layout_gravity="center"
+	    >
+
+		<ImageView
+		    android:id="@+id/author_selfie"
+		    android:layout_width="20dp"
+		    android:layout_height="20dp"
+		    android:layout_gravity="center"
+		    android:layout_marginLeft="20dp"
+		    android:src="@drawable/ic_launcher" />
+
+		<TextView
+		    android:id="@+id/author_name"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="10dp"
+		    android:text="小鱼干" />
+		
+		<TextView
+	    android:id="@+id/publish_date"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="10dp"
+	    android:textSize="12sp"
+	    android:text="2017年10月25日" />
+
+		<ImageView
+		    android:id="@+id/likes_iv"
+		    android:contentDescription="@string/likes"
+		    android:layout_width="15dp"
+		    android:layout_height="15dp"
+		    android:layout_marginLeft="20dp"
+		    android:src="@drawable/ic_launcher" />
+
+		<TextView
+		    android:id="@+id/likes_num"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginRight="5dp"
+		    android:text="620" />
+
+		<ImageView
+		    android:id="@+id/comments_iv"
+		     android:contentDescription="@string/comments"
+		    android:layout_width="15dp"
+		    android:layout_height="15dp"
+		    android:src="@drawable/ic_launcher" />
+
+		<TextView
+		    android:id="@+id/comments_num"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="125" />
+
+	</LinearLayout>
+	
+    <View style="@style/bg_line"/>
+    
+	<TextView
+        android:id="@+id/title_tv"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:text="就要吃小鱼干" />
+
+	
+
+	<ImageView
+	    android:id="@+id/photo"
+	    android:layout_gravity="center"
+	    android:layout_width="240dp"
+	    android:layout_height="240dp"
+	    android:layout_marginTop="10dp"
+	    android:src="@drawable/ic_launcher" />
+
+	<TextView
+	    android:id="@+id/content"
+	    android:layout_gravity="center"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="10dp"
+	    android:text="这是一篇测试图文，哈哈哈哈哈哈" />
+	
+	<ListView
+        android:id="@+id/listview_comment"
+        android:layout_gravity="center" 
+        android:gravity="center" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+	
+    
+</LinearLayout>

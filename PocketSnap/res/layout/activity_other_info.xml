@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:background="#fffbf0"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<LinearLayout 
+    android:layout_width="match_parent"  
+    android:layout_height="match_parent"  
+    android:orientation="vertical" >
+   
+    <LinearLayout
+        android:id="@+id/goto_user_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        >
+
+        <ImageView
+            android:id="@+id/selfie"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:text="@string/username_label" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/my_introduction"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:text="我就是我，是不一样的烟火~" />
+
+    <View style="@style/bg_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:gravity="center"
+        >
+
+        <LinearLayout
+            android:id="@+id/goto_user_attention"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="100dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/focus_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20" />
+
+            <TextView
+                android:id="@+id/focus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/focus_label" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/goto_user_fan"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/fan_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40" />
+
+            <TextView
+                android:id="@+id/fan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fan_label" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    <LinearLayout style="@style/wrap_layout">
+    	<LinearLayout android:id="@+id/its_essays" style="@style/top_layout">
+        	<TextView style="@style/usertext" android:text="@string/its_essays_label" />
+          	<ImageView style="@style/img_arrow"/>
+    	</LinearLayout>
+   		<View style="@style/bg_line"/>
+    
+   		<LinearLayout android:id="@+id/its_comments" style="@style/bottom_layout">
+        	<TextView style="@style/usertext" android:text="@string/its_comments_label" />
+          	<ImageView style="@style/img_arrow"/>
+    	</LinearLayout>
+    </LinearLayout>
+    
+</LinearLayout>
+
+</ScrollView>
+

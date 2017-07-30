@@ -1,0 +1,155 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#fffbf0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_gravity="center"
+    	android:id="@+id/appName_tv"
+    	android:layout_width="180dp"
+    	android:layout_height="130dp"
+    	android:text="@string/appName"
+    	android:textColor="@color/red"
+    	android:background="@drawable/logo"
+    	android:layout_marginBottom="20dp"
+    	android:gravity="center|bottom"
+    	android:textSize="20sp" />
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_gravity="center"
+        >
+
+        
+        <TextView
+            android:id="@+id/username_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/username_label" />
+
+        <EditText
+            android:id="@+id/username_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:maxLength="20"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/username_input" >
+
+            <requestFocus />
+        </EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/password_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/password_label" />
+
+        <EditText
+            android:id="@+id/password_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:maxLength="20"
+            android:hint="@string/password_input"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/email_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email_label" />
+
+        <EditText
+            android:id="@+id/email_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:maxLength="40"
+            android:hint="@string/email_input"
+            android:inputType="textEmailAddress" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:id="@+id/phone_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/phone_label" />
+
+        <EditText
+            android:id="@+id/phone_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:maxLength="11"
+            android:hint="@string/phone_input"
+            android:inputType="phone" />
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:layout_gravity="center"
+            android:gravity="center"
+            >
+
+            <Button
+                android:id="@+id/register_bt"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/buttonshape2"
+                android:text="@string/register_bt"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/goback_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/buttonshape"
+                android:text="@string/goback_bt" 
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+</LinearLayout>

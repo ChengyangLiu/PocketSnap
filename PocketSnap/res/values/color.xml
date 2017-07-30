@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resources>
+    
+<!-- 描边颜色 -->
+<color name="border_clo">#ccc</color>
+<color name="text_clo">#333</color>
+<color name="white">#fff</color>
+<color name="blue">#419DE4</color>
+    
+<!-- 共用颜色 -->
+<color name="red">#FF0000</color>
+<color name="black">#000000</color>  
+<color name="gray">#808080</color>  
+<color name="xuanqing">#3d3b4f</color>  
+<color name="wuhei">#392f41</color>  
+<color name="qihei">#161823</color>  
+
+
+
+</resources>
