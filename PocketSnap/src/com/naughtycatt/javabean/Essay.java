@@ -10,6 +10,7 @@ public class Essay extends BmobObject{
 	private BmobFile photo;
 	private int like_num;
 	private int comment_num;
+	private int size;
 	
 	public String getUsername() {
         return username;
@@ -52,5 +53,12 @@ public class Essay extends BmobObject{
     public void setComment_num(int comment_num) {
         this.comment_num = comment_num;
     }
+    
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
     
 }

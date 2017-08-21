@@ -65,8 +65,16 @@
         android:layout_marginBottom="20dp"
         android:src="@drawable/add_char" />
 
+    <Switch
+        android:id="@+id/orinal"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上传原图" />
+
     <Button
-        android:id="@+id/launch_bt"
+        android:id="@+id/launch_bt"        
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"

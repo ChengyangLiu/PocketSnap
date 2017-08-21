@@ -68,4 +68,5 @@ public class _User extends BmobUser {
     public void setAttention_num(Integer attention_num) {
         this.attention_num = attention_num;
     }
+
 }

@@ -2,7 +2,11 @@ package com.naughtycatt.user;
 
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -19,6 +23,7 @@ import cn.bmob.v3.listener.UploadFileListener;
 import com.naughtycatt.javabean._User;
 import com.naughtycatt.pocketsnap.MainActivity;
 import com.naughtycatt.pocketsnap.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +31,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -179,7 +185,7 @@ public class User_Info extends Activity implements OnClickListener{
 			URLConnection connection;   //网络连接对象
 			InputStream is;    //数据输入流
 			BitmapFactory.Options opt = new BitmapFactory.Options(); 
-			opt.inSampleSize = 4;
+			opt.inSampleSize = 1;
 			try {
 				connection = new URL(url).openConnection();
 				is = connection.getInputStream();   //获取输入流
@@ -243,6 +249,13 @@ public class User_Info extends Activity implements OnClickListener{
 			String picturePath = cursor.getString(columnIndex);
 			cursor.close();
 			mPhotoFile = new File(picturePath);
+			Bitmap photo=BitmapFactory.decodeFile(picturePath);
+			Bitmap compress_bitmap=compressImage(photo);
+			//将压缩后的图片存到cache内
+			saveImageToGallery(User_Info.this, compress_bitmap, mPhotoFile.getName().toString());
+			//获取压缩后的文件
+			mPhotoFile = new File(Environment.getExternalStorageDirectory()
+					+ "/cache/" + mPhotoFile.getName().toString());
 			//sendToast(picturePath);
 			upload_selfie(mPhotoFile);
 		}
@@ -280,6 +293,55 @@ public class User_Info extends Activity implements OnClickListener{
     		
     	});
     } 
+	
+	/*压缩图片*/
+	public static Bitmap compressImage(Bitmap image) {  
+		  
+	    ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+	    image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中  
+	    int options = 90;  
+	  
+	    while (baos.toByteArray().length / 1024 > 100) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩  
+	        baos.reset(); // 重置baos即清空baos  
+	        image.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中  
+	        options -= 10;// 每次都减少10  
+	    }  
+	    ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中  
+	    Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片  
+	    return bitmap;  
+	} 
+	
+	/*保存图片到缓存文件夹*/
+	public void saveImageToGallery(Context context, Bitmap bmp, String fileName) {
+	    // 首先保存图片
+	    File appDir = new File(Environment.getExternalStorageDirectory(), "cache");
+	    if (!appDir.exists()) {
+	        appDir.mkdir();
+	    }
+	    String path=Environment.getExternalStorageDirectory().toString()+"/cache";
+	    File file = new File(appDir, fileName);
+	    try {
+	        FileOutputStream fos = new FileOutputStream(file);
+	        bmp.compress(CompressFormat.JPEG, 100, fos);
+	        fos.flush();
+	        fos.close();
+	    } catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+		}
+	    
+	    // 其次把文件插入到系统图库
+	    try {
+	        MediaStore.Images.Media.insertImage(context.getContentResolver(),
+					file.getAbsolutePath(), fileName, null);
+	    } catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    // 最后通知图库更新
+	    context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
+	}
 	
 	/*判断当前是否为WiFi网络*/
 	public boolean isWifi(Context mContext) {  

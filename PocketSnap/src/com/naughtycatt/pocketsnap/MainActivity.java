@@ -1,8 +1,9 @@
 package com.naughtycatt.pocketsnap;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,7 +15,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -24,15 +24,13 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SQLQueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
-
 import com.naughtycatt.javabean.Essay;
 import com.naughtycatt.javabean._User;
 import com.naughtycatt.setting.Setting_Suggestion;
 import com.naughtycatt.user.User_Info;
 import com.naughtycatt.user.User_Login;
-
 import android.app.AlertDialog;
-import android.app.SearchManager;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -60,7 +58,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -98,6 +95,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
     private SharedPreferences.Editor editor;
     private File cache;
     private boolean flag_refresh=false;
+    private Dialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -406,13 +404,13 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    	                Log.i("smile", "查询成功，无数据返回");
 	    	                //数据库内无数据，则标记为无数据状态
 	    	                loadState=LOAD_STATE_FINISH;
-	    	                sendToast(MainActivity.this,"数据已全部加载完毕");
+	    	                sendToast("数据已全部加载完毕");
 	    	                mloadingLinear.setVisibility(View.GONE);
 							mLoadFinishTextView.setVisibility(View.VISIBLE);
 	    	            }
 	    	        }else{
 	    	            Log.i("smile", "错误码："+e.getErrorCode()+"，错误描述："+e.getMessage());
-	    	            sendToast(MainActivity.this,"错误码："+e.getErrorCode()+"，错误描述："+e.getMessage());
+	    	            sendToast("错误码："+e.getErrorCode()+"，错误描述："+e.getMessage());
 	    	        }
 	    	    }
 	    	});
@@ -474,11 +472,12 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				else{
 					if(!isWifi(MainActivity.this)&&wifi.equals("YES")){
 						//开启WiFi加载模式且当前没有WiFi，不加载图片
-						sendToast(MainActivity.this,"当前处于非WiFi网络环境中，图片已禁止加载");
+						sendToast("当前处于非WiFi网络环境中，图片已禁止加载");
 					}
 					else{//从网络加载图片，并将图片缓存到本地缓存目录中
 						new ImageDownloadTask((ImageView) convertView.findViewById(R.id.photo)
-								,essayList.get(position).getPhoto().getFilename())
+								,essayList.get(position).getPhoto().getFilename()
+								,essayList.get(position).getSize())
 						.execute(essayList.get(position).getPhoto().getFileUrl());
 						//sendToast(MainActivity.this,"从网络加载图片中");
 					}
@@ -521,6 +520,8 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		private String saveDir = Environment.getExternalStorageDirectory()+ "/PocketSnap";
 		private String photo_name;
 		private Essay essay=new Essay();
+		private Switch orinal;
+		private boolean orinal_yes;
 		
 		/*载入布局*/
 	    @Override  
@@ -539,6 +540,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			content_et=(EditText) findViewById(R.id.essay_content);
 			photo_iv=(ImageView) findViewById(R.id.essay_photo);
 			launch_bt=(Button)findViewById(R.id.launch_bt);
+			orinal=(Switch)findViewById(R.id.orinal);
 			flag_refresh=false;
 			
 			photo_iv.setOnClickListener(new OnClickListener()
@@ -583,26 +585,51 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				public void onClick(View v)
 				{
 					if(title_et.getText().toString().equals("")||content_et.getText().toString().equals("")||flag==false){
-						sendToast(MainActivity.this,"请将内容填写完整");
+						sendToast("请将内容填写完整");
 					}
 					else{
-						//launch_bt.setEnabled(false);
-						launch_bt.setVisibility(View.INVISIBLE);
+						dialog_wait("正在发布随手拍中^.^");
+						Bitmap compress_bitmap=null;
+						if(orinal_yes==false){//上传原图未打开，进行图片压缩，缩放到100k以内
+							//进行压缩
+							compress_bitmap=compressImage(photo);
+							//将压缩后的图片存到cache内
+							saveImageToGallery(MainActivity.this, compress_bitmap, mPhotoFile.getName().toString());
+							//获取压缩后的文件
+							mPhotoFile = new File(Environment.getExternalStorageDirectory()
+									+ "/cache/" + mPhotoFile.getName().toString());
+						}
+						
+						//获取上传者信息
 						_User bmobUser = BmobUser.getCurrentUser(_User.class);
+						int size=(int) ((int) mPhotoFile.length()/1024.0);
+						//上传图片
 						InsertEssay(bmobUser.getUsername(),
 								title_et.getText().toString(),
 								content_et.getText().toString(),
-								mPhotoFile);
-						//launch_bt.setEnabled(true);
-						launch_bt.setVisibility(View.VISIBLE);
-						
+								mPhotoFile,
+								size
+								);					
 					}
 				}
 			});	
+			
+			orinal.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+					if (isChecked) {
+						orinal_yes=true;
+						sendToast("已开启原图上传");
+					} 
+					else {
+						orinal_yes=false;
+						sendToast("已关闭原图上传");
+					}
+				}
+			});
+			
 		}
-	    
 
-	    
 	    /*调用相册*/
 	    private void OpenAlbum(){
 	    	Intent i = new Intent(
@@ -650,9 +677,20 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			if (requestCode == CAMERA_RESULT && resultCode == RESULT_OK) {
 				if (mPhotoFile != null && mPhotoFile.exists()) {
 					BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-					bitmapOptions.inSampleSize = 8;
-					photo = BitmapFactory.decodeFile(mPhotoFile.getPath(),
-							bitmapOptions);
+					double size=mPhotoFile.length()/1024.0;
+					if(size>1000){
+						bitmapOptions.inSampleSize = 2;
+					}
+					else if(size>2000){
+						bitmapOptions.inSampleSize = 4;
+					}
+					else if(size>4000){
+						bitmapOptions.inSampleSize = 8;
+					}
+					else{
+						bitmapOptions.inSampleSize = 16;
+					}
+					photo = BitmapFactory.decodeFile(mPhotoFile.getPath(),bitmapOptions);
 					photo_iv.setImageBitmap(photo);
 					flag=true;
 				}
@@ -668,23 +706,37 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 				String picturePath = cursor.getString(columnIndex);
 				cursor.close();
-				//sendToast(picturePath+"\n"+Environment.getExternalStorageDirectory()+ "/PocketSnap");
+				//dialog_wait(picturePath+"\n"+Environment.getExternalStorageDirectory());
 				mPhotoFile = new File(picturePath);
-				
-				photo=BitmapFactory.decodeFile(picturePath);
+				BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+				double size=mPhotoFile.length()/1024.0;
+				if(size>1000){
+					bitmapOptions.inSampleSize = 2;
+				}
+				else if(size>2000){
+					bitmapOptions.inSampleSize = 4;
+				}
+				else if(size>4000){
+					bitmapOptions.inSampleSize = 8;
+				}
+				else{
+					bitmapOptions.inSampleSize = 16;
+				}
+				photo=BitmapFactory.decodeFile(picturePath,bitmapOptions);
 				photo_iv.setImageBitmap(photo);
 				flag=true;
 			}
 		}
 	    
 	    /*向Essay表中添加一篇图文*/
-	    public void InsertEssay(String username,String title, String content, File mPhotoFile){
+	    public void InsertEssay(String username,String title, String content, File mPhotoFile, int size){
 	    	
 	    	essay.setUsername(username);
 	    	essay.setLike_num(0);
 	    	essay.setComment_num(0);
 	    	essay.setTitle(title);
 	    	essay.setContent(content);
+	    	essay.setSize(size);
 	    	//sendToast(mPhotoFile.getPath().toString());
 	    	//将文件上传到数据库
 	    	upload(mPhotoFile);
@@ -705,19 +757,21 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 							@Override
 							public void done(String arg0, BmobException e) {
 								if(e==null){
-									sendToast(MainActivity.this,"发布成功！");
+									dialog_cancel();
+									sendToast("发布成功！");
 									title_et.setText("");
 									content_et.setText("");
 									photo_iv.setImageDrawable (getResources().getDrawable((R.drawable.add_char)));
+									orinal_yes=false;
 								}
 								else{
-									sendToast(MainActivity.this,e.getErrorCode()+e.getMessage());
+									sendToast(e.getErrorCode()+e.getMessage());
 								}
 							}
 				    	});
 					}
 					else{
-						sendToast(MainActivity.this,"上传图片失败！"+e.getErrorCode()+e.getMessage());
+						sendToast("上传图片失败！"+e.getErrorCode()+e.getMessage());
 					}
 				}
 	    		
@@ -830,11 +884,11 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				}
 				else{
 					if(!isWifi(MainActivity.this)&&wifi.equals("YES")){
-						sendToast(MainActivity.this,"当前处于非WiFi网络环境中，图片已禁止加载");
+						sendToast("当前处于非WiFi网络环境中，图片已禁止加载");
 					}
 					else{
 						
-						new ImageDownloadTask(selfie,user.getSelfie().getFilename())
+						new ImageDownloadTask(selfie,user.getSelfie().getFilename(),0)
 						.execute(user.getSelfie().getFileUrl());
 						//sendToast(MainActivity.this,"从网络加载图片中");
 					}
@@ -965,7 +1019,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		    if (appDir.exists()) {
 		    	cache_file_size=getFolderSize(appDir);
 		    }
-		    DecimalFormat df = new DecimalFormat("#.00");
+		    DecimalFormat df = new DecimalFormat("#0.00");
 		    used_mem.setText(df.format(cache_file_size)+"M");
 	    	
 	    	String wifi = preferences.getString("WIFI_MODE", null);
@@ -997,11 +1051,13 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 					load_mode_switch.setChecked(true);
 					editor.putString("WIFI_MODE", "YES");
 					editor.commit();
+					sendToast("WiFi模式已开启，仅在WiFi环境下加载图片");
 				}
 				else{
 					load_mode_switch.setChecked(false);
 					editor.putString("WIFI_MODE", "NO");
 					editor.commit();
+					sendToast("WiFi模式已关闭");
 				}
 				break;
 			case R.id.night_mode:
@@ -1010,18 +1066,20 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 					night_mode_switch.setChecked(true);
 					editor.putString("NIGHT_MODE", "YES");
 					editor.commit();
+					sendToast("夜间模式已开启");
 				}
 				else{
 					night_mode_switch.setChecked(false);
 					editor.putString("NIGHT_MODE", "NO");
 					editor.commit();
+					sendToast("夜间模式已关闭");
 				}
 				break;
 			case R.id.remark:
-				sendToast(MainActivity.this,"该App处于测试阶段，还未上线，暂时不能评分，感谢您的支持！");
+				sendToast("该App处于测试阶段，还未上线，暂时不能评分，感谢您的支持！");
 				break;
 			case R.id.shareApp:
-				sendToast(MainActivity.this,"API申请中...");
+				sendToast("API申请中...");
 				break;
 			case R.id.suggestion:
 				Intent sug = new Intent(MainActivity.this,Setting_Suggestion.class);
@@ -1037,7 +1095,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			        cache.delete();
 				}
 				used_mem.setText("0");
-				sendToast(MainActivity.this,"缓存已释放");
+				sendToast("缓存已释放");
 				break;
 			case R.id.exit:
 				BmobUser.logOut();
@@ -1055,6 +1113,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	public class ImageDownloadTask extends AsyncTask<String,Void,Bitmap> {
 		private ImageView mImageView;
 		private String mFileName;
+		private int size;
 		
 		@Override
 		protected Bitmap doInBackground(String... params) {
@@ -1063,7 +1122,21 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			URLConnection connection;   //网络连接对象
 			InputStream is;    //数据输入流
 			BitmapFactory.Options opt = new BitmapFactory.Options(); 
-			opt.inSampleSize = 4;
+			if(size<=200){
+				opt.inSampleSize = 1;
+			}
+			else if(size<=1000){
+				opt.inSampleSize = 2;
+			}
+			else if(size<=2000){
+				opt.inSampleSize = 4;
+			}
+			else if(size<=4000){
+				opt.inSampleSize = 8;
+			}
+			else{
+				opt.inSampleSize = 16;
+			}
 			try {
 				connection = new URL(url).openConnection();
 				is = connection.getInputStream();   //获取输入流
@@ -1081,10 +1154,11 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			return bitmap;
 		}
 		
-		ImageDownloadTask(ImageView mImageView,String mFileName){
+		ImageDownloadTask(ImageView mImageView,String mFileName, int size){
 			//重载构造函数，获取控件
 			this.mImageView=mImageView;
 			this.mFileName=mFileName;
+			this.size=size;
 		}
 
 		@Override
@@ -1118,6 +1192,23 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    } catch (Exception e)  {  
 	    	
 	    }  
+	    return bitmap;  
+	} 
+	
+	/*压缩图片*/
+	public static Bitmap compressImage(Bitmap image) {  
+		  
+	    ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+	    image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中  
+	    int options = 90;  
+	  
+	    while (baos.toByteArray().length / 1024 > 100) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩  
+	        baos.reset(); // 重置baos即清空baos  
+	        image.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中  
+	        options -= 10;// 每次都减少10  
+	    }  
+	    ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中  
+	    Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片  
 	    return bitmap;  
 	} 
 	
@@ -1187,8 +1278,22 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    } 
 	
 	/*toast*/
-	public void sendToast(Context mContext,String msg){
-		Toast toast = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT);
+	public void sendToast(String msg){
+		Toast toast = Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT);
 		toast.show();
 	}
+	
+	public void dialog_wait(String msg){
+		progressDialog = new Dialog(MainActivity.this,R.style.progress_dialog);
+        progressDialog.setContentView(R.layout.dialog);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        TextView tv = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);
+        tv.setText(msg);
+        progressDialog.show();
+	}
+	public void dialog_cancel(){
+        progressDialog.dismiss();
+    }
 }
