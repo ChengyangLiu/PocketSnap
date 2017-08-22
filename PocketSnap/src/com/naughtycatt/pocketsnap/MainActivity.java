@@ -110,12 +110,12 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
             cache.mkdirs();
         }
 		
-		//Á¬½ÓBmobÔÆºó¶Ë
+		//è¿æ¥Bmobäº‘åç«¯
 		Bmob.initialize(this, "5091e30425ec59d7cd6daa6c9ecde047");
 		
 		_User bmobUser = BmobUser.getCurrentUser(_User.class);
 		if(bmobUser != null){
-		    // ÔÊĞíÓÃ»§Ê¹ÓÃÓ¦ÓÃ
+		    // å…è®¸ç”¨æˆ·ä½¿ç”¨åº”ç”¨
 			mTitle = mDrawerTitle = getTitle();
 			mMenuTitles = getResources().getStringArray(R.array.menu_array);
 			initDrawerLayout();
@@ -128,7 +128,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			setTitle(mMenuTitles[0]);
 			setDefaultFragment();
 
-			//Ê¹ÓÃActionBarDrawerToggle×÷Îª¼àÌıÆ÷
+			//ä½¿ç”¨ActionBarDrawerToggleä½œä¸ºç›‘å¬å™¨
 			mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 					R.drawable.ic_drawer, R.string.drawer_open,
 					R.string.drawer_close) {
@@ -153,7 +153,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		}
 	}
 	
-	/*³õÊ¼»¯×ó²àµ¼º½²Ëµ¥ÄÚÈİ*/
+	/*åˆå§‹åŒ–å·¦ä¾§å¯¼èˆªèœå•å†…å®¹*/
 	private void initDrawerList() {
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
@@ -161,7 +161,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		mDrawerList.setOnItemClickListener(this);
 	}
 
-	/*³õÊ¼»¯×ó²à²Ëµ¥²¼¾Ö*/
+	/*åˆå§‹åŒ–å·¦ä¾§èœå•å¸ƒå±€*/
 	private void initDrawerLayout() {
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 	}
@@ -187,31 +187,31 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	}
 	
 
-	/*×ó²àµ¼º½ÄÚÈİ±»Ñ¡ÖĞ*/
+	/*å·¦ä¾§å¯¼èˆªå†…å®¹è¢«é€‰ä¸­*/
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		
 		/*Toast toast = Toast.makeText(MainActivity.this, mMenuTitles[position], Toast.LENGTH_SHORT);
-		toast.show();//²âÊÔ*/
+		toast.show();//æµ‹è¯•*/
 		selectItem(position);
 	}
 
-	/*Ìø×ªµ½µ¼º½ÖĞÏàÓ¦µÄfragment*/
+	/*è·³è½¬åˆ°å¯¼èˆªä¸­ç›¸åº”çš„fragment*/
 	private void selectItem(int position) {
 		FragmentManager fm = getSupportFragmentManager();  
-        // ¿ªÆôFragmentÊÂÎñ  
+        // å¼€å¯Fragmentäº‹åŠ¡  
         FragmentTransaction transaction = fm.beginTransaction();  
         
 		switch(position){
-		case 0://PocketSnapÖ÷½çÃæ
+		case 0://PocketSnapä¸»ç•Œé¢
 			if (f_PS == null) 
 			{  
 				f_PS = new PocketSnapFragment();  
 	        }  
 	        transaction.replace(R.id.content_layout, f_PS); 
 			break;
-		case 1://getPhotoÉÏ´«ËæÊÖÅÄÕÕÆ¬µÄ½çÃæ
+		case 1://getPhotoä¸Šä¼ éšæ‰‹æ‹ç…§ç‰‡çš„ç•Œé¢
 			if (f_GP == null) 
 			{  
 				f_GP = new GetPhotoFragment();  
@@ -219,21 +219,21 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	        transaction.replace(R.id.content_layout, f_GP); 
 	        //sendToast(Environment.getExternalStorageDirectory().toString());
 			break;
-		case 2://collection¸öÈËÊÕ²Ø½çÃæ
+		case 2://collectionä¸ªäººæ”¶è—ç•Œé¢
 			if (f_col == null) 
 			{  
 				f_col = new CollectionFragment();  
 	        }  
 	        transaction.replace(R.id.content_layout, f_col); 
 			break;
-		case 3://information¸öÈËĞÅÏ¢½çÃæ
+		case 3://informationä¸ªäººä¿¡æ¯ç•Œé¢
 			if (f_info == null) 
 			{  
 				f_info = new InformationFragment();  
 	        }  
 	        transaction.replace(R.id.content_layout, f_info); 
 			break;
-		case 4://settingÉèÖÃ½çÃæ
+		case 4://settingè®¾ç½®ç•Œé¢
 			if (f_set == null) 
 			{  
 				f_set = new SettingFragment();  
@@ -250,7 +250,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	}
 
 	
-	/*ÉèÖÃÄ¬ÈÏµÄfragment½çÃæ*/
+	/*è®¾ç½®é»˜è®¤çš„fragmentç•Œé¢*/
 	 private void setDefaultFragment()  
 	 {  
 	        FragmentManager fm = getSupportFragmentManager();  
@@ -261,7 +261,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    }
 	 
 	 
-	 /*ÉèÖÃactionbaeµÄ±êÌâ*/
+	 /*è®¾ç½®actionbaeçš„æ ‡é¢˜*/
 	@Override
 	public void setTitle(CharSequence title) {
 		mTitle = title;
@@ -282,17 +282,17 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 	
-	/*PocketSnapÌû×Óä¯ÀÀ°å¿é*/
+	/*PocketSnapå¸–å­æµè§ˆæ¿å—*/
 	public class PocketSnapFragment extends Fragment implements OnScrollListener{
 		private View mFooterView;
-		private LinearLayout mloadingLinear;//ÕıÔÚ¼ÓÔØÊ±ÏÔÊ¾µÄview
-		private TextView mLoadFinishTextView;//¼ÓÔØÈ«²¿Êı¾İºóÏÔÊ¾µÄview
-		private final int LOAD_STATE_IDLE=0;//Ã»ÓĞÔÚ¼ÓÔØ£¬²¢ÇÒ·şÎñÆ÷ÉÏ»¹ÓĞÊı¾İÃ»¼ÓÔØ
-		private final int LOAD_STATE_LOADING=1;//ÕıÔÚ¼ÓÔØ×´Ì¬
-		private final int LOAD_STATE_FINISH=2;//±íÊ¾·şÎñÆ÷ÉÏµÄÈ«²¿Êı¾İ¶¼ÒÑ¼ÓÔØÍê±Ï
-		private int loadState=LOAD_STATE_IDLE;//¼ÇÂ¼¼ÓÔØµÄ×´Ì¬
+		private LinearLayout mloadingLinear;//æ­£åœ¨åŠ è½½æ—¶æ˜¾ç¤ºçš„view
+		private TextView mLoadFinishTextView;//åŠ è½½å…¨éƒ¨æ•°æ®åæ˜¾ç¤ºçš„view
+		private final int LOAD_STATE_IDLE=0;//æ²¡æœ‰åœ¨åŠ è½½ï¼Œå¹¶ä¸”æœåŠ¡å™¨ä¸Šè¿˜æœ‰æ•°æ®æ²¡åŠ è½½
+		private final int LOAD_STATE_LOADING=1;//æ­£åœ¨åŠ è½½çŠ¶æ€
+		private final int LOAD_STATE_FINISH=2;//è¡¨ç¤ºæœåŠ¡å™¨ä¸Šçš„å…¨éƒ¨æ•°æ®éƒ½å·²åŠ è½½å®Œæ¯•
+		private int loadState=LOAD_STATE_IDLE;//è®°å½•åŠ è½½çš„çŠ¶æ€
 		private List<Essay> essay=new ArrayList<Essay>();
-		private int skip=0;//Ò³Êı
+		private int skip=0;//é¡µæ•°
 		private ListView mListview = null;
 		private PaginationAdapter mAdapter;
 		
@@ -312,10 +312,10 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			mloadingLinear=(LinearLayout) mFooterView.findViewById(R.id.loading_linear);
 			mLoadFinishTextView=(TextView) mFooterView.findViewById(R.id.load_finish_textview);
 			mListview = (ListView) findViewById(R.id.listview_pocketsnap);
-			mListview.addFooterView(mFooterView);// ÉèÖÃÁĞ±íµ×²¿ÊÓÍ¼			
+			mListview.addFooterView(mFooterView);// è®¾ç½®åˆ—è¡¨åº•éƒ¨è§†å›¾			
 			mAdapter = new PaginationAdapter(essay);;
 			mListview.setAdapter(mAdapter);
-			//ÉèÖÃsetOnScrollListener»á×Ô¶¯µ÷ÓÃonscroll·½·¨¡£
+			//è®¾ç½®setOnScrollListenerä¼šè‡ªåŠ¨è°ƒç”¨onscrollæ–¹æ³•ã€‚
 			mListview.setOnScrollListener(this);
 		}
 		
@@ -326,11 +326,11 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			Log.i("onS", "firstVisibleItem"+firstVisibleItem+" visibleItemCount"+visibleItemCount+" totalItemCount"+totalItemCount);
 			if (firstVisibleItem+visibleItemCount==totalItemCount) {
 				if(loadState==LOAD_STATE_IDLE)
-				{//´¦ÓÚÎ´¼ÓÔØÊı¾İ×´Ì¬£¬²¢ÇÒÊı¾İ¿âÈÔÓĞÊı¾İÊ±£¬ÏÂÀ­»á¼ÓÔØĞÂÊı¾İ
+				{//å¤„äºæœªåŠ è½½æ•°æ®çŠ¶æ€ï¼Œå¹¶ä¸”æ•°æ®åº“ä»æœ‰æ•°æ®æ—¶ï¼Œä¸‹æ‹‰ä¼šåŠ è½½æ–°æ•°æ®
 					Log.i("onScroll", "firstVisibleItem"+firstVisibleItem+" visibleItemCount"+visibleItemCount+" totalItemCount"+totalItemCount);
-					//½øÈë¼ÓÔØÊı¾İ×´Ì¬
+					//è¿›å…¥åŠ è½½æ•°æ®çŠ¶æ€
 			    	loadState=LOAD_STATE_LOADING;
-					//·ÖÒ³²éÑ¯
+					//åˆ†é¡µæŸ¥è¯¢
 					queryEssayByDate(skip);
 					skip++;
 				}
@@ -343,32 +343,32 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		}
 		
 		
-		/*·ÖÒ³²éÑ¯Essay£¬Ã¿Ò³XÌõ*/
+		/*åˆ†é¡µæŸ¥è¯¢Essayï¼Œæ¯é¡µXæ¡*/
 	    private void queryEssayByDate(Integer skip){
-	    	//×¢ÊÍµôµÄ²éÑ¯·½·¨×ÜÊÇ±¨9015´íÎó£¬²»ÖªµÀÎªÊ²Ã´¡£¡£¡£¿ÉÄÜÊÇjar°üÓĞÎÊÌâ
+	    	//æ³¨é‡Šæ‰çš„æŸ¥è¯¢æ–¹æ³•æ€»æ˜¯æŠ¥9015é”™è¯¯ï¼Œä¸çŸ¥é“ä¸ºä»€ä¹ˆã€‚ã€‚ã€‚å¯èƒ½æ˜¯jaråŒ…æœ‰é—®é¢˜
 	    	/*BmobQuery<Essay> query = new BmobQuery<Essay>();
-	    	//ºöÂÔÇ°skip*5ÌõÊı¾İ
+	    	//å¿½ç•¥å‰skip*5æ¡æ•°æ®
 	    	query.setSkip(5*skip);
-	    	//·µ»Ø5ÌõÊı¾İ
+	    	//è¿”å›5æ¡æ•°æ®
 	    	query.setLimit(5);
-	    	//¸ù¾İ´´½¨ÈÕÆÚ½µĞòÅÅĞò
+	    	//æ ¹æ®åˆ›å»ºæ—¥æœŸé™åºæ’åº
 	    	query.order("-createdAt");
 	    	
 	    	query.findObjects(new FindListener<Essay>() {
 				@Override
 				public void done(List<Essay> object, BmobException e) {
 					if(e==null){
-						sendToast("²éÑ¯³É¹¦£º¹²"+object.size()+"ÌõÊı¾İ¡£");
+						sendToast("æŸ¥è¯¢æˆåŠŸï¼šå…±"+object.size()+"æ¡æ•°æ®ã€‚");
 			            for (Essay essay : object) {
-			            	//½«²éÑ¯µ½µÄÊı¾İ¼ÓÈëµ½adapterÖĞ
+			            	//å°†æŸ¥è¯¢åˆ°çš„æ•°æ®åŠ å…¥åˆ°adapterä¸­
 							//mAdapter.addEssayItem(essay);
 			            	TextView title_tv = (TextView) findViewById(R.id.title_tv);
 							title_tv.setText(title_tv.getText().toString()+"@"+essay.getTitle());
 			            }
 					}
 					else{
-						Log.i("bmob","Ê§°Ü£º"+e);
-			            sendToast("Ê§°Ü£º"+e);
+						Log.i("bmob","å¤±è´¥ï¼š"+e);
+			            sendToast("å¤±è´¥ï¼š"+e);
 			            //handler.sendEmptyMessage(0x2222);
 					}
 				}
@@ -382,7 +382,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    			+ from.toString()
 	    			+ ",3"
 	    			+ " order by createdAt desc";
-	    	//¼ÆÊı¼Ó1
+	    	//è®¡æ•°åŠ 1
 	    	skip++;
 	    	new BmobQuery<Essay>().doSQLQuery(bql,new SQLQueryListener<Essay>(){
 
@@ -398,19 +398,19 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    	                }
 	    	                //sendToast(str);
 	    	                mAdapter.notifyDataSetChanged();
-	    	                //Êı¾İ¿âÄÚÈÔÓĞÊı¾İ£¬Ôò»Ö¸´Î´¼ÓÔØÊı¾İ×´Ì¬
+	    	                //æ•°æ®åº“å†…ä»æœ‰æ•°æ®ï¼Œåˆ™æ¢å¤æœªåŠ è½½æ•°æ®çŠ¶æ€
 	    	                loadState=LOAD_STATE_IDLE;
 	    	            }else{
-	    	                Log.i("smile", "²éÑ¯³É¹¦£¬ÎŞÊı¾İ·µ»Ø");
-	    	                //Êı¾İ¿âÄÚÎŞÊı¾İ£¬Ôò±ê¼ÇÎªÎŞÊı¾İ×´Ì¬
+	    	                Log.i("smile", "æŸ¥è¯¢æˆåŠŸï¼Œæ— æ•°æ®è¿”å›");
+	    	                //æ•°æ®åº“å†…æ— æ•°æ®ï¼Œåˆ™æ ‡è®°ä¸ºæ— æ•°æ®çŠ¶æ€
 	    	                loadState=LOAD_STATE_FINISH;
-	    	                sendToast("Êı¾İÒÑÈ«²¿¼ÓÔØÍê±Ï");
+	    	                sendToast("æ•°æ®å·²å…¨éƒ¨åŠ è½½å®Œæ¯•");
 	    	                mloadingLinear.setVisibility(View.GONE);
 							mLoadFinishTextView.setVisibility(View.VISIBLE);
 	    	            }
 	    	        }else{
-	    	            Log.i("smile", "´íÎóÂë£º"+e.getErrorCode()+"£¬´íÎóÃèÊö£º"+e.getMessage());
-	    	            sendToast("´íÎóÂë£º"+e.getErrorCode()+"£¬´íÎóÃèÊö£º"+e.getMessage());
+	    	            Log.i("smile", "é”™è¯¯ç ï¼š"+e.getErrorCode()+"ï¼Œé”™è¯¯æè¿°ï¼š"+e.getMessage());
+	    	            sendToast("é”™è¯¯ç ï¼š"+e.getErrorCode()+"ï¼Œé”™è¯¯æè¿°ï¼š"+e.getMessage());
 	    	        }
 	    	    }
 	    	});
@@ -445,16 +445,16 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 					convertView = getLayoutInflater(getArguments()).inflate(R.layout.list_item_snap,
 							null);
 				}
-				//Í¼ÎÄ±êÌâ
+				//å›¾æ–‡æ ‡é¢˜
 				TextView title_tv = (TextView) convertView.findViewById(R.id.title_tv);
 				title_tv.setText(essayList.get(position).getTitle());
-				//·¢²¼ÈÕÆÚ
+				//å‘å¸ƒæ—¥æœŸ
 				TextView publish_date_tv = (TextView) convertView.findViewById(R.id.publish_date);
 				publish_date_tv.setText(essayList.get(position).getCreatedAt());
 				
-				//Í¼Æ¬
+				//å›¾ç‰‡
 				String wifi = preferences.getString("WIFI_MODE", null);
-				//»º´æÄ¿Â¼
+				//ç¼“å­˜ç›®å½•
 				
 				Bitmap cache_addr=null;
 				try{
@@ -464,38 +464,38 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				}catch(Exception e){
 					cache_addr=null;
 				}
-				if(cache_addr!=null){//»º´æÖĞ´æÔÚ¸ÃÍ¼Æ¬Ôò´Ó»º´æ¼ÓÔØ
+				if(cache_addr!=null){//ç¼“å­˜ä¸­å­˜åœ¨è¯¥å›¾ç‰‡åˆ™ä»ç¼“å­˜åŠ è½½
 					ImageView im = (ImageView) convertView.findViewById(R.id.photo);
 					im.setImageBitmap(cache_addr);
-					//sendToast(MainActivity.this,"´Ó»º´æ¼ÓÔØÍ¼Æ¬ÖĞ");
+					//sendToast(MainActivity.this,"ä»ç¼“å­˜åŠ è½½å›¾ç‰‡ä¸­");
 				}
 				else{
 					if(!isWifi(MainActivity.this)&&wifi.equals("YES")){
-						//¿ªÆôWiFi¼ÓÔØÄ£Ê½ÇÒµ±Ç°Ã»ÓĞWiFi£¬²»¼ÓÔØÍ¼Æ¬
-						sendToast("µ±Ç°´¦ÓÚ·ÇWiFiÍøÂç»·¾³ÖĞ£¬Í¼Æ¬ÒÑ½ûÖ¹¼ÓÔØ");
+						//å¼€å¯WiFiåŠ è½½æ¨¡å¼ä¸”å½“å‰æ²¡æœ‰WiFiï¼Œä¸åŠ è½½å›¾ç‰‡
+						sendToast("å½“å‰å¤„äºéWiFiç½‘ç»œç¯å¢ƒä¸­ï¼Œå›¾ç‰‡å·²ç¦æ­¢åŠ è½½");
 					}
-					else{//´ÓÍøÂç¼ÓÔØÍ¼Æ¬£¬²¢½«Í¼Æ¬»º´æµ½±¾µØ»º´æÄ¿Â¼ÖĞ
+					else{//ä»ç½‘ç»œåŠ è½½å›¾ç‰‡ï¼Œå¹¶å°†å›¾ç‰‡ç¼“å­˜åˆ°æœ¬åœ°ç¼“å­˜ç›®å½•ä¸­
 						new ImageDownloadTask((ImageView) convertView.findViewById(R.id.photo)
 								,essayList.get(position).getPhoto().getFilename()
 								,essayList.get(position).getSize())
 						.execute(essayList.get(position).getPhoto().getFileUrl());
-						//sendToast(MainActivity.this,"´ÓÍøÂç¼ÓÔØÍ¼Æ¬ÖĞ");
+						//sendToast(MainActivity.this,"ä»ç½‘ç»œåŠ è½½å›¾ç‰‡ä¸­");
 					}
 				}
 				
-				//ÄÚÈİ
+				//å†…å®¹
 				TextView content_tv = (TextView) convertView.findViewById(R.id.content);
 				content_tv.setText(essayList.get(position).getContent());
 				
-				//ÓÃ»§Ãû
+				//ç”¨æˆ·å
 				TextView username_tv = (TextView) convertView.findViewById(R.id.author_name);
 				username_tv.setText(essayList.get(position).getUsername());
 				
-				//Ï²»¶Êı
+				//å–œæ¬¢æ•°
 				TextView likes_iv = (TextView) convertView.findViewById(R.id.likes_num);
 				Integer temp=essayList.get(position).getLike_num();
 				likes_iv.setText(temp.toString());
-				//ÆÀÂÛÊı
+				//è¯„è®ºæ•°
 				TextView comments_iv = (TextView) convertView.findViewById(R.id.comments_num);
 				temp=essayList.get(position).getComment_num();
 				comments_iv.setText(temp.toString());
@@ -507,7 +507,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	}  
 	
 	
-	/*ÉÏ´«Í¼Æ¬°å¿é*/
+	/*ä¸Šä¼ å›¾ç‰‡æ¿å—*/
 	public class GetPhotoFragment extends Fragment  {  
 		private boolean flag=false;
 	    private EditText title_et,content_et;
@@ -523,7 +523,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		private Switch orinal;
 		private boolean orinal_yes;
 		
-		/*ÔØÈë²¼¾Ö*/
+		/*è½½å…¥å¸ƒå±€*/
 	    @Override  
 	    public View onCreateView(LayoutInflater inflater, ViewGroup container,  
 	            Bundle savedInstanceState)  
@@ -531,7 +531,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	        return inflater.inflate(R.layout.fragment_getphoto, container, false);  
 	    }  
 	    
-	    /*´¦ÀífragmentÖĞµÄÊÂ¼ş*/
+	    /*å¤„ç†fragmentä¸­çš„äº‹ä»¶*/
 	    @Override  
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState); 
@@ -544,33 +544,33 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			flag_refresh=false;
 			
 			photo_iv.setOnClickListener(new OnClickListener()
-			{//ÉÏ´«Í¼Æ¬
+			{//ä¸Šä¼ å›¾ç‰‡
 				@Override
 				public void onClick(View v)
-				{//Ñ¡ÔñÍ¼Æ¬À´Ô´£ºÏà²á£¬Ïà»ú
+				{//é€‰æ‹©å›¾ç‰‡æ¥æºï¼šç›¸å†Œï¼Œç›¸æœº
 					final String[] items = getResources().getStringArray(R.array.photo_array); 
 					
-					//´æ´¢µØÖ·
+					//å­˜å‚¨åœ°å€
 					File savePath = new File(saveDir);
 					if (!savePath.exists()) {
 						savePath.mkdirs();
 					}
 					
 	                new AlertDialog.Builder(MainActivity.this)  
-	                        .setTitle("ÉÏ´«ÕÕÆ¬")  
+	                        .setTitle("ä¸Šä¼ ç…§ç‰‡")  
 	                        .setItems(items, new DialogInterface.OnClickListener() {
 
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
 									switch(which){
-									case 0://Ïà²á
+									case 0://ç›¸å†Œ
 										OpenAlbum();
 										break;
-									case 1://Ïà»ú
+									case 1://ç›¸æœº
 										OpenCamera();
 										break;
-									case 2://È¡Ïû
+									case 2://å–æ¶ˆ
 										break;
 									}
 								} 
@@ -580,30 +580,30 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			});		
 			
 			launch_bt.setOnClickListener(new OnClickListener()
-			{//·¢²¼ĞÂÎÄÕÂ
+			{//å‘å¸ƒæ–°æ–‡ç« 
 				@Override
 				public void onClick(View v)
 				{
 					if(title_et.getText().toString().equals("")||content_et.getText().toString().equals("")||flag==false){
-						sendToast("Çë½«ÄÚÈİÌîĞ´ÍêÕû");
+						sendToast("è¯·å°†å†…å®¹å¡«å†™å®Œæ•´");
 					}
 					else{
-						dialog_wait("ÕıÔÚ·¢²¼ËæÊÖÅÄÖĞ^.^");
+						dialog_wait("æ­£åœ¨å‘å¸ƒéšæ‰‹æ‹ä¸­^.^");
 						Bitmap compress_bitmap=null;
-						if(orinal_yes==false){//ÉÏ´«Ô­Í¼Î´´ò¿ª£¬½øĞĞÍ¼Æ¬Ñ¹Ëõ£¬Ëõ·Åµ½100kÒÔÄÚ
-							//½øĞĞÑ¹Ëõ
+						if(orinal_yes==false){//ä¸Šä¼ åŸå›¾æœªæ‰“å¼€ï¼Œè¿›è¡Œå›¾ç‰‡å‹ç¼©ï¼Œç¼©æ”¾åˆ°100kä»¥å†…
+							//è¿›è¡Œå‹ç¼©
 							compress_bitmap=compressImage(photo);
-							//½«Ñ¹ËõºóµÄÍ¼Æ¬´æµ½cacheÄÚ
+							//å°†å‹ç¼©åçš„å›¾ç‰‡å­˜åˆ°cacheå†…
 							saveImageToGallery(MainActivity.this, compress_bitmap, mPhotoFile.getName().toString());
-							//»ñÈ¡Ñ¹ËõºóµÄÎÄ¼ş
+							//è·å–å‹ç¼©åçš„æ–‡ä»¶
 							mPhotoFile = new File(Environment.getExternalStorageDirectory()
 									+ "/cache/" + mPhotoFile.getName().toString());
 						}
 						
-						//»ñÈ¡ÉÏ´«ÕßĞÅÏ¢
+						//è·å–ä¸Šä¼ è€…ä¿¡æ¯
 						_User bmobUser = BmobUser.getCurrentUser(_User.class);
 						int size=(int) ((int) mPhotoFile.length()/1024.0);
-						//ÉÏ´«Í¼Æ¬
+						//ä¸Šä¼ å›¾ç‰‡
 						InsertEssay(bmobUser.getUsername(),
 								title_et.getText().toString(),
 								content_et.getText().toString(),
@@ -619,18 +619,18 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
 					if (isChecked) {
 						orinal_yes=true;
-						sendToast("ÒÑ¿ªÆôÔ­Í¼ÉÏ´«");
+						sendToast("å·²å¼€å¯åŸå›¾ä¸Šä¼ ");
 					} 
 					else {
 						orinal_yes=false;
-						sendToast("ÒÑ¹Ø±ÕÔ­Í¼ÉÏ´«");
+						sendToast("å·²å…³é—­åŸå›¾ä¸Šä¼ ");
 					}
 				}
 			});
 			
 		}
 
-	    /*µ÷ÓÃÏà²á*/
+	    /*è°ƒç”¨ç›¸å†Œ*/
 	    private void OpenAlbum(){
 	    	Intent i = new Intent(
 					Intent.ACTION_PICK,
@@ -638,7 +638,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			startActivityForResult(i, RESULT_LOAD_IMAGE);
 	    }
 	    
-	    /*µ÷ÓÃÏà»ú*/
+	    /*è°ƒç”¨ç›¸æœº*/
 	    private void OpenCamera(){
 	    	destoryImage();
 			String state = Environment.getExternalStorageState();
@@ -654,7 +654,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 						mPhotoFile.createNewFile();
 					} catch (IOException e) {
 						e.printStackTrace();
-						Toast.makeText(getApplication(), "ÕÕÆ¬´´½¨Ê§°Ü!",
+						Toast.makeText(getApplication(), "ç…§ç‰‡åˆ›å»ºå¤±è´¥!",
 								Toast.LENGTH_LONG).show();
 						return;
 					}
@@ -665,12 +665,12 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 						Uri.fromFile(mPhotoFile));
 				startActivityForResult(intent, CAMERA_RESULT);
 			} else {
-				Toast.makeText(getApplication(), "SDcardÎŞĞ§»òÃ»ÓĞ²åÈë!",
+				Toast.makeText(getApplication(), "SDcardæ— æ•ˆæˆ–æ²¡æœ‰æ’å…¥!",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
 	    
-	    /*µ÷ÓÃÏà²áºÍÏà»úºóµÄ·µ»Ø½á¹û*/
+	    /*è°ƒç”¨ç›¸å†Œå’Œç›¸æœºåçš„è¿”å›ç»“æœ*/
 	    @Override
 		public void onActivityResult(int requestCode, int resultCode, Intent data) {
 			super.onActivityResult(requestCode, resultCode, data);
@@ -678,7 +678,10 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				if (mPhotoFile != null && mPhotoFile.exists()) {
 					BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
 					double size=mPhotoFile.length()/1024.0;
-					if(size>1000){
+					if(size<=1000){
+						bitmapOptions.inSampleSize = 1;
+					}
+					else if(size>1000){
 						bitmapOptions.inSampleSize = 2;
 					}
 					else if(size>2000){
@@ -710,7 +713,10 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				mPhotoFile = new File(picturePath);
 				BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
 				double size=mPhotoFile.length()/1024.0;
-				if(size>1000){
+				if(size<=1000){
+					bitmapOptions.inSampleSize = 1;
+				}
+				else if(size>1000){
 					bitmapOptions.inSampleSize = 2;
 				}
 				else if(size>2000){
@@ -728,7 +734,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			}
 		}
 	    
-	    /*ÏòEssay±íÖĞÌí¼ÓÒ»ÆªÍ¼ÎÄ*/
+	    /*å‘Essayè¡¨ä¸­æ·»åŠ ä¸€ç¯‡å›¾æ–‡*/
 	    public void InsertEssay(String username,String title, String content, File mPhotoFile, int size){
 	    	
 	    	essay.setUsername(username);
@@ -738,12 +744,12 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    	essay.setContent(content);
 	    	essay.setSize(size);
 	    	//sendToast(mPhotoFile.getPath().toString());
-	    	//½«ÎÄ¼şÉÏ´«µ½Êı¾İ¿â
+	    	//å°†æ–‡ä»¶ä¸Šä¼ åˆ°æ•°æ®åº“
 	    	upload(mPhotoFile);
 	    	
 	    }
 	    
-	    /* ½«Í¼Æ¬ÉÏ´«  */  
+	    /* å°†å›¾ç‰‡ä¸Šä¼   */  
 	    public void upload(File file){  
 	    	final BmobFile bmobFile = new BmobFile(file);
 	    	bmobFile.uploadblock(new UploadFileListener() {
@@ -752,13 +758,13 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				public void done(BmobException e) {
 					if(e==null){
 						essay.setPhoto(new BmobFile(mPhotoFile.getName().toString(),null,bmobFile.getFileUrl()));
-				    	//½«Êı¾İ´æ´¢µ½±íÖĞ
+				    	//å°†æ•°æ®å­˜å‚¨åˆ°è¡¨ä¸­
 				    	essay.save(new SaveListener<String>() {
 							@Override
 							public void done(String arg0, BmobException e) {
 								if(e==null){
 									dialog_cancel();
-									sendToast("·¢²¼³É¹¦£¡");
+									sendToast("å‘å¸ƒæˆåŠŸï¼");
 									title_et.setText("");
 									content_et.setText("");
 									photo_iv.setImageDrawable (getResources().getDrawable((R.drawable.add_char)));
@@ -771,7 +777,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				    	});
 					}
 					else{
-						sendToast("ÉÏ´«Í¼Æ¬Ê§°Ü£¡"+e.getErrorCode()+e.getMessage());
+						sendToast("ä¸Šä¼ å›¾ç‰‡å¤±è´¥ï¼"+e.getErrorCode()+e.getMessage());
 					}
 				}
 	    		
@@ -779,7 +785,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    } 
 	    
 	    
-	    /*ÊÍ·ÅÍ¼Æ¬×ÊÔ´*/
+	    /*é‡Šæ”¾å›¾ç‰‡èµ„æº*/
 	    @Override
 		public void onDestroy() {
 			destoryImage();
@@ -794,7 +800,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		}
 	}  
 	
-	/*ÊÕ²Ø°å¿é*/
+	/*æ”¶è—æ¿å—*/
 	public class CollectionFragment extends Fragment  {  
 		private ImageView tm;
 	    @Override  
@@ -812,7 +818,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	  
 	} 
 	
-	/*¸öÈËĞÅÏ¢°å¿é*/
+	/*ä¸ªäººä¿¡æ¯æ¿å—*/
 	public class InformationFragment extends Fragment implements OnClickListener{
 		
 		private ImageView selfie;
@@ -864,11 +870,11 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			
 			_User user = BmobUser.getCurrentUser(_User.class);
 			if(user.getSelfie()==null){
-				//Ä¬ÈÏÍ·Ïñ
-				//sendToast("Ä¬ÈÏÍ·Ïñ");
+				//é»˜è®¤å¤´åƒ
+				//sendToast("é»˜è®¤å¤´åƒ");
 			}
 			else{
-				//×ÓÏß³Ì¼ÓÔØÍ·Ïñ		
+				//å­çº¿ç¨‹åŠ è½½å¤´åƒ		
 				String wifi = preferences.getString("WIFI_MODE", null);
 				Bitmap cache_addr=null;
 				try{
@@ -878,27 +884,27 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				}catch(Exception e){
 					
 				}
-				if(cache_addr!=null){//»º´æÖĞ´æÔÚ¸ÃÍ¼Æ¬Ôò´Ó»º´æ¼ÓÔØ
+				if(cache_addr!=null){//ç¼“å­˜ä¸­å­˜åœ¨è¯¥å›¾ç‰‡åˆ™ä»ç¼“å­˜åŠ è½½
 					selfie.setImageBitmap(cache_addr);
-					//sendToast(MainActivity.this,"´Ó»º´æ¼ÓÔØÍ¼Æ¬ÖĞ");
+					//sendToast(MainActivity.this,"ä»ç¼“å­˜åŠ è½½å›¾ç‰‡ä¸­");
 				}
 				else{
 					if(!isWifi(MainActivity.this)&&wifi.equals("YES")){
-						sendToast("µ±Ç°´¦ÓÚ·ÇWiFiÍøÂç»·¾³ÖĞ£¬Í¼Æ¬ÒÑ½ûÖ¹¼ÓÔØ");
+						sendToast("å½“å‰å¤„äºéWiFiç½‘ç»œç¯å¢ƒä¸­ï¼Œå›¾ç‰‡å·²ç¦æ­¢åŠ è½½");
 					}
 					else{
 						
 						new ImageDownloadTask(selfie,user.getSelfie().getFilename(),0)
 						.execute(user.getSelfie().getFileUrl());
-						//sendToast(MainActivity.this,"´ÓÍøÂç¼ÓÔØÍ¼Æ¬ÖĞ");
+						//sendToast(MainActivity.this,"ä»ç½‘ç»œåŠ è½½å›¾ç‰‡ä¸­");
 					}
 				}
 			}
 			if(user.getIntroduction()==null){
-				//Ä¬ÈÏ×ÔÎÒ½éÉÜ
-				//sendToast("Ä¬ÈÏ½éÉÜ");
+				//é»˜è®¤è‡ªæˆ‘ä»‹ç»
+				//sendToast("é»˜è®¤ä»‹ç»");
 			}
-			else{//¼ÓÔØ×ÔÎÒ½éÉÜ
+			else{//åŠ è½½è‡ªæˆ‘ä»‹ç»
 				my_introduction.setText(user.getIntroduction());
 			}
 			username.setText(user.getUsername());
@@ -933,7 +939,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		}
 	} 
 	
-	/*ÉèÖÃ°å¿é*/
+	/*è®¾ç½®æ¿å—*/
 	class SettingFragment extends Fragment implements OnClickListener{  
 		
 		private LinearLayout WIFI_mode;
@@ -988,13 +994,13 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 					if (isChecked) {
 						editor.putString("NIGHT_MODE", "YES");
 						editor.commit();
-						//´ò¿ªÒ¹¼äÄ£Ê½
+						//æ‰“å¼€å¤œé—´æ¨¡å¼
 						
 					} 
 					else {
 						editor.putString("NIGHT_MODE", "NO");
 						editor.commit();
-						//¹Ø±ÕÒ¹¼äÄ£Ê½
+						//å…³é—­å¤œé—´æ¨¡å¼
 				    
 					}
 				}
@@ -1013,7 +1019,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    	used_mem=(TextView) findViewById(R.id.used_mem);
 	    	exit=(Button) findViewById(R.id.exit);
 	    	
-	    	//¼ÆËã»º´æ´óĞ¡
+	    	//è®¡ç®—ç¼“å­˜å¤§å°
 	    	double cache_file_size=0;
 	    	File appDir = new File(Environment.getExternalStorageDirectory(), "cache");
 		    if (appDir.exists()) {
@@ -1025,7 +1031,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    	String wifi = preferences.getString("WIFI_MODE", null);
 	    	String night = preferences.getString("NIGHT_MODE", null);
 	    	if(wifi==null||wifi.equals("NO")){
-	    		//Î´¿ªÆôwifiÄ£Ê½
+	    		//æœªå¼€å¯wifiæ¨¡å¼
 	    		load_mode_switch.setChecked(false);
 	    		
 	    	}
@@ -1035,7 +1041,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    	}
 	    	
 	    	if(night==null||night.equals("NO")){
-	    		//Î´¿ªÆôÒ¹¼äÄ£Ê½
+	    		//æœªå¼€å¯å¤œé—´æ¨¡å¼
 	    		night_mode_switch.setChecked(false);
 	    	}
 	    	else{
@@ -1051,13 +1057,13 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 					load_mode_switch.setChecked(true);
 					editor.putString("WIFI_MODE", "YES");
 					editor.commit();
-					sendToast("WiFiÄ£Ê½ÒÑ¿ªÆô£¬½öÔÚWiFi»·¾³ÏÂ¼ÓÔØÍ¼Æ¬");
+					sendToast("WiFiæ¨¡å¼å·²å¼€å¯ï¼Œä»…åœ¨WiFiç¯å¢ƒä¸‹åŠ è½½å›¾ç‰‡");
 				}
 				else{
 					load_mode_switch.setChecked(false);
 					editor.putString("WIFI_MODE", "NO");
 					editor.commit();
-					sendToast("WiFiÄ£Ê½ÒÑ¹Ø±Õ");
+					sendToast("WiFiæ¨¡å¼å·²å…³é—­");
 				}
 				break;
 			case R.id.night_mode:
@@ -1066,20 +1072,20 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 					night_mode_switch.setChecked(true);
 					editor.putString("NIGHT_MODE", "YES");
 					editor.commit();
-					sendToast("Ò¹¼äÄ£Ê½ÒÑ¿ªÆô");
+					sendToast("å¤œé—´æ¨¡å¼å·²å¼€å¯");
 				}
 				else{
 					night_mode_switch.setChecked(false);
 					editor.putString("NIGHT_MODE", "NO");
 					editor.commit();
-					sendToast("Ò¹¼äÄ£Ê½ÒÑ¹Ø±Õ");
+					sendToast("å¤œé—´æ¨¡å¼å·²å…³é—­");
 				}
 				break;
 			case R.id.remark:
-				sendToast("¸ÃApp´¦ÓÚ²âÊÔ½×¶Î£¬»¹Î´ÉÏÏß£¬ÔİÊ±²»ÄÜÆÀ·Ö£¬¸ĞĞ»ÄúµÄÖ§³Ö£¡");
+				sendToast("è¯¥Appå¤„äºæµ‹è¯•é˜¶æ®µï¼Œè¿˜æœªä¸Šçº¿ï¼Œæš‚æ—¶ä¸èƒ½è¯„åˆ†ï¼Œæ„Ÿè°¢æ‚¨çš„æ”¯æŒï¼");
 				break;
 			case R.id.shareApp:
-				sendToast("APIÉêÇëÖĞ...");
+				sendToast("APIç”³è¯·ä¸­...");
 				break;
 			case R.id.suggestion:
 				Intent sug = new Intent(MainActivity.this,Setting_Suggestion.class);
@@ -1095,7 +1101,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			        cache.delete();
 				}
 				used_mem.setText("0");
-				sendToast("»º´æÒÑÊÍ·Å");
+				sendToast("ç¼“å­˜å·²é‡Šæ”¾");
 				break;
 			case R.id.exit:
 				BmobUser.logOut();
@@ -1109,7 +1115,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	  
 	} 
 
-	/*Òì²½¶àÏß³Ì¼ÓÔØÍ¼Æ¬×ÊÔ´*/
+	/*å¼‚æ­¥å¤šçº¿ç¨‹åŠ è½½å›¾ç‰‡èµ„æº*/
 	public class ImageDownloadTask extends AsyncTask<String,Void,Bitmap> {
 		private ImageView mImageView;
 		private String mFileName;
@@ -1117,10 +1123,10 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 		
 		@Override
 		protected Bitmap doInBackground(String... params) {
-			Bitmap bitmap = null;    //´ı·µ»ØµÄ½á¹û
-			String url = params[0];  //»ñÈ¡URL
-			URLConnection connection;   //ÍøÂçÁ¬½Ó¶ÔÏó
-			InputStream is;    //Êı¾İÊäÈëÁ÷
+			Bitmap bitmap = null;    //å¾…è¿”å›çš„ç»“æœ
+			String url = params[0];  //è·å–URL
+			URLConnection connection;   //ç½‘ç»œè¿æ¥å¯¹è±¡
+			InputStream is;    //æ•°æ®è¾“å…¥æµ
 			BitmapFactory.Options opt = new BitmapFactory.Options(); 
 			if(size<=200){
 				opt.inSampleSize = 1;
@@ -1139,9 +1145,9 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			}
 			try {
 				connection = new URL(url).openConnection();
-				is = connection.getInputStream();   //»ñÈ¡ÊäÈëÁ÷
+				is = connection.getInputStream();   //è·å–è¾“å…¥æµ
 				BufferedInputStream buf = new BufferedInputStream(is);
-				//½âÎöÊäÈëÁ÷
+				//è§£æè¾“å…¥æµ
 				bitmap = BitmapFactory.decodeStream(buf,null,opt);
 				is.close();
 				buf.close();
@@ -1150,12 +1156,12 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			//·µ»Ø¸øºóÃæµ÷ÓÃµÄ·½·¨
+			//è¿”å›ç»™åé¢è°ƒç”¨çš„æ–¹æ³•
 			return bitmap;
 		}
 		
 		ImageDownloadTask(ImageView mImageView,String mFileName, int size){
-			//ÖØÔØ¹¹Ôìº¯Êı£¬»ñÈ¡¿Ø¼ş
+			//é‡è½½æ„é€ å‡½æ•°ï¼Œè·å–æ§ä»¶
 			this.mImageView=mImageView;
 			this.mFileName=mFileName;
 			this.size=size;
@@ -1163,19 +1169,19 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 
 		@Override
 		protected void onPreExecute() {
-			//¼ÓÔØÇ°UI²¼¾Ö
+			//åŠ è½½å‰UIå¸ƒå±€
 			
 		}
 
 		@Override
 		protected void onPostExecute(Bitmap result) {
-			//¼ÓÔØºóUI²¼¾Ö
+			//åŠ è½½åUIå¸ƒå±€
 			mImageView.setImageBitmap(result);
 			saveImageToGallery(MainActivity.this, result, mFileName);
 		}
 	}
 	
-	/*´Ó±¾µØ¶ÁÈ¡Í¼Æ¬*/
+	/*ä»æœ¬åœ°è¯»å–å›¾ç‰‡*/
 	public Bitmap getDiskBitmap(String pathString)  
 	{  
 	    Bitmap bitmap = null;  
@@ -1195,26 +1201,26 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    return bitmap;  
 	} 
 	
-	/*Ñ¹ËõÍ¼Æ¬*/
+	/*å‹ç¼©å›¾ç‰‡*/
 	public static Bitmap compressImage(Bitmap image) {  
 		  
 	    ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-	    image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// ÖÊÁ¿Ñ¹Ëõ·½·¨£¬ÕâÀï100±íÊ¾²»Ñ¹Ëõ£¬°ÑÑ¹ËõºóµÄÊı¾İ´æ·Åµ½baosÖĞ  
+	    image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// è´¨é‡å‹ç¼©æ–¹æ³•ï¼Œè¿™é‡Œ100è¡¨ç¤ºä¸å‹ç¼©ï¼ŒæŠŠå‹ç¼©åçš„æ•°æ®å­˜æ”¾åˆ°baosä¸­  
 	    int options = 90;  
 	  
-	    while (baos.toByteArray().length / 1024 > 100) { // Ñ­»·ÅĞ¶ÏÈç¹ûÑ¹ËõºóÍ¼Æ¬ÊÇ·ñ´óÓÚ100kb,´óÓÚ¼ÌĞøÑ¹Ëõ  
-	        baos.reset(); // ÖØÖÃbaos¼´Çå¿Õbaos  
-	        image.compress(Bitmap.CompressFormat.JPEG, options, baos);// ÕâÀïÑ¹Ëõoptions%£¬°ÑÑ¹ËõºóµÄÊı¾İ´æ·Åµ½baosÖĞ  
-	        options -= 10;// Ã¿´Î¶¼¼õÉÙ10  
+	    while (baos.toByteArray().length / 1024 > 100) { // å¾ªç¯åˆ¤æ–­å¦‚æœå‹ç¼©åå›¾ç‰‡æ˜¯å¦å¤§äº100kb,å¤§äºç»§ç»­å‹ç¼©  
+	        baos.reset(); // é‡ç½®baoså³æ¸…ç©ºbaos  
+	        image.compress(Bitmap.CompressFormat.JPEG, options, baos);// è¿™é‡Œå‹ç¼©options%ï¼ŒæŠŠå‹ç¼©åçš„æ•°æ®å­˜æ”¾åˆ°baosä¸­  
+	        options -= 10;// æ¯æ¬¡éƒ½å‡å°‘10  
 	    }  
-	    ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// °ÑÑ¹ËõºóµÄÊı¾İbaos´æ·Åµ½ByteArrayInputStreamÖĞ  
-	    Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// °ÑByteArrayInputStreamÊı¾İÉú³ÉÍ¼Æ¬  
+	    ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// æŠŠå‹ç¼©åçš„æ•°æ®baoså­˜æ”¾åˆ°ByteArrayInputStreamä¸­  
+	    Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// æŠŠByteArrayInputStreamæ•°æ®ç”Ÿæˆå›¾ç‰‡  
 	    return bitmap;  
 	} 
 	
-	/*±£´æÍ¼Æ¬µ½»º´æÎÄ¼ş¼Ğ*/
+	/*ä¿å­˜å›¾ç‰‡åˆ°ç¼“å­˜æ–‡ä»¶å¤¹*/
 	public void saveImageToGallery(Context context, Bitmap bmp, String fileName) {
-	    // Ê×ÏÈ±£´æÍ¼Æ¬
+	    // é¦–å…ˆä¿å­˜å›¾ç‰‡
 	    File appDir = new File(Environment.getExternalStorageDirectory(), "cache");
 	    if (!appDir.exists()) {
 	        appDir.mkdir();
@@ -1232,7 +1238,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	        e.printStackTrace();
 		}
 	    
-	    // Æä´Î°ÑÎÄ¼ş²åÈëµ½ÏµÍ³Í¼¿â
+	    // å…¶æ¬¡æŠŠæ–‡ä»¶æ’å…¥åˆ°ç³»ç»Ÿå›¾åº“
 	    try {
 	        MediaStore.Images.Media.insertImage(context.getContentResolver(),
 					file.getAbsolutePath(), fileName, null);
@@ -1240,11 +1246,11 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	        e.printStackTrace();
 	    }
 	    
-	    // ×îºóÍ¨ÖªÍ¼¿â¸üĞÂ
+	    // æœ€åé€šçŸ¥å›¾åº“æ›´æ–°
 	    context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
 	}
 	
-	/*ÅĞ¶Ïµ±Ç°ÊÇ·ñÎªWiFiÍøÂç*/
+	/*åˆ¤æ–­å½“å‰æ˜¯å¦ä¸ºWiFiç½‘ç»œ*/
 	public boolean isWifi(Context mContext) {  
 	    ConnectivityManager connectivityManager = (ConnectivityManager) mContext  
 	    		.getSystemService(Context.CONNECTIVITY_SERVICE);  
@@ -1256,7 +1262,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 	    return false;  
 	}  
 	
-	/*Í³¼ÆÎÄ¼ş¼Ğ´óĞ¡*/
+	/*ç»Ÿè®¡æ–‡ä»¶å¤¹å¤§å°*/
 	 public static double getFolderSize(java.io.File file){    
 		 
 		 double size = 0;    

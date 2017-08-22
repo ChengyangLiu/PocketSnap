@@ -54,18 +54,18 @@ public class User_Register extends Activity{
 			@Override
 			public void onClick(View v)
 			{
-				//Ìí¼ÓÓÃ»§½øÊı¾İ¿â£¬ÔÆ¶ËÊı¾İ¿âÓĞ×Ô¶¯¼ìÑé¹¦ÄÜ
+				//æ·»åŠ ç”¨æˆ·è¿›æ•°æ®åº“ï¼Œäº‘ç«¯æ•°æ®åº“æœ‰è‡ªåŠ¨æ£€éªŒåŠŸèƒ½
 				String password=password_et.getText().toString();
 				String phone=phone_et.getText().toString();
 				String email=email_et.getText().toString();
 				if(password.length()<6){
-					sendToast("ÃÜÂëÎ»Êı¹ıµÍ£¬ÇëÊäÈë6Î»ÒÔÉÏÃÜÂë");
+					sendToast("å¯†ç ä½æ•°è¿‡ä½ï¼Œè¯·è¾“å…¥6ä½ä»¥ä¸Šå¯†ç ");
 				}
 				else if(!email.contains("@")){
-					sendToast("ÓÊÏä¸ñÊ½´íÎó");
+					sendToast("é‚®ç®±æ ¼å¼é”™è¯¯");
 				}
 				else if(phone.length()!=11){
-					sendToast("ÊÖ»úºÅÎ»Êı´íÎó");
+					sendToast("æ‰‹æœºå·ä½æ•°é”™è¯¯");
 				}
 				
 				else{
@@ -89,7 +89,7 @@ public class User_Register extends Activity{
 	}
 	
 	
-	/*Ìí¼ÓÓÃ»§½øÈëÊı¾İ¿â*/
+	/*æ·»åŠ ç”¨æˆ·è¿›å…¥æ•°æ®åº“*/
 	public void InsertUser(String username,String password, String phone, String email){
 		_User  user=new _User();
     	user.setUsername(username);
@@ -105,11 +105,11 @@ public class User_Register extends Activity{
 			@Override
 			public void done(_User  arg0, BmobException e) {
 				if(e==null){
-					sendToast("×¢²á³É¹¦£¡");
+					sendToast("æ³¨å†ŒæˆåŠŸï¼");
 					finish();
 				}
 				else{
-					sendToast("×¢²áÊ§°Ü:"+e.getErrorCode()+e.getMessage());
+					sendToast("æ³¨å†Œå¤±è´¥:"+e.getErrorCode()+e.getMessage());
 				}
 			}
     	});

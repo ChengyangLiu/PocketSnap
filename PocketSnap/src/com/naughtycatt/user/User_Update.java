@@ -47,8 +47,8 @@ public class User_Update extends Activity{
         content=bundle.getString("content");
         ActionBar actionBar=getActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); //Enable×Ô¶¨ÒåµÄView
-            actionBar.setCustomView(R.layout.actionbar_save);//ÉèÖÃ×Ô¶¨ÒåµÄ²¼¾Ö£ºactionbar_custom
+            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); //Enableè‡ªå®šä¹‰çš„View
+            actionBar.setCustomView(R.layout.actionbar_save);//è®¾ç½®è‡ªå®šä¹‰çš„å¸ƒå±€ï¼šactionbar_custom
             goback_tv=(TextView)findViewById(R.id.goback_tv);
             title_tv=(TextView)findViewById(R.id.title);
             save_tv=(TextView)findViewById(R.id.save_tv);
@@ -72,10 +72,10 @@ public class User_Update extends Activity{
     			{
     				String new_s=update_et.getText().toString();
     				if(new_s.equals("")){
-    					sendToast("ÊäÈëÄÚÈİ²»ÄÜÎª¿Õ£¡");
+    					sendToast("è¾“å…¥å†…å®¹ä¸èƒ½ä¸ºç©ºï¼");
     				}
     				else{
-    					sendToast("ÕıÔÚ¸üĞÂ");
+    					sendToast("æ­£åœ¨æ›´æ–°");
     					updateUserInfo(new_s);
     				}
     			}
@@ -89,19 +89,19 @@ public class User_Update extends Activity{
 		_User newUser = new _User();
 		
 		switch(title){
-		case "êÇ³Æ":
+		case "æ˜µç§°":
 			newUser.setNickname(new_s);
 			break;
-		case "ĞÔ±ğ":
+		case "æ€§åˆ«":
 			newUser.setGender(new_s);
 			break;
-		case "µØÇø":
+		case "åœ°åŒº":
 			newUser.setPosition(new_s);
 			break;
-		case "¸öÈË¼ò½é":
+		case "ä¸ªäººç®€ä»‹":
 			newUser.setIntroduction(new_s);
 			break;
-		case "ÕæÊµĞÕÃû":
+		case "çœŸå®å§“å":
 			newUser.setRealname(new_s);
 			break;
 		}
@@ -111,10 +111,10 @@ public class User_Update extends Activity{
 		    @Override
 		    public void done(BmobException e) {
 		        if(e==null){
-		            sendToast("¸üĞÂ³É¹¦£¡");
+		            sendToast("æ›´æ–°æˆåŠŸï¼");
 		            finish();
 		        }else{
-		        	sendToast("¸üĞÂÊ§°Ü:" + e.getMessage());
+		        	sendToast("æ›´æ–°å¤±è´¥:" + e.getMessage());
 		        }
 		    }
 		});

@@ -43,7 +43,7 @@ public class Setting_Suggestion extends Activity{
 				
 				Intent data=new Intent(Intent.ACTION_SENDTO);    
 				data.setData(Uri.parse("mailto:315136649@qq.com"));    
-				data.putExtra(Intent.EXTRA_SUBJECT, "[意见反馈]from "+user.getUsername());    
+				data.putExtra(Intent.EXTRA_SUBJECT, "[鎰忚鍙嶉]from "+user.getUsername());    
 				data.putExtra(Intent.EXTRA_TEXT, suggestion_et.getText().toString());    
 				startActivityForResult(data,1); 
 			}
@@ -64,7 +64,7 @@ public class Setting_Suggestion extends Activity{
 	{
 		super.onActivityResult(requestCode, resultCode, data);
 		if(requestCode==1){
-			sendToast("信件已发送，衷心的感谢您的建议！");
+			sendToast("淇′欢宸插彂閫侊紝琛峰績鐨勬劅璋㈡偍鐨勫缓璁紒");
 			finish();
 		}
 	}

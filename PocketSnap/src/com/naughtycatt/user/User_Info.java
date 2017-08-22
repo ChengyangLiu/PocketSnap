@@ -93,27 +93,27 @@ public class User_Info extends Activity implements OnClickListener{
 		
 		_User user = BmobUser.getCurrentUser(_User.class);
 		if(user.getSelfie()==null){
-			//Ä¬ÈÏÍ·Ïñ
+			//é»˜è®¤å¤´åƒ
 		}
 		else{
-			//¼ÓÔØÍ·Ïñ
+			//åŠ è½½å¤´åƒ
 			String wifi = preferences.getString("WIFI_MODE", null);
 			
 			/*Bitmap cache_addr=getDiskBitmap(Environment.getExternalStorageDirectory()
 					+ "/cache/"
 					+user.getSelfie().getFilename());
-			if(cache_addr!=null){//»º´æÖĞ´æÔÚ¸ÃÍ¼Æ¬Ôò´Ó»º´æ¼ÓÔØ
+			if(cache_addr!=null){//ç¼“å­˜ä¸­å­˜åœ¨è¯¥å›¾ç‰‡åˆ™ä»ç¼“å­˜åŠ è½½
 				selfie.setImageBitmap(cache_addr);
-				sendToast("´Ó»º´æ¼ÓÔØÍ¼Æ¬ÖĞ");
+				sendToast("ä»ç¼“å­˜åŠ è½½å›¾ç‰‡ä¸­");
 			}
 			else{
 				if(!isWifi(MainActivity.this)&&wifi.equals("YES")){
-					sendToast("µ±Ç°´¦ÓÚ·ÇWiFiÍøÂç»·¾³ÖĞ£¬Í¼Æ¬ÒÑ½ûÖ¹¼ÓÔØ");
+					sendToast("å½“å‰å¤„äºéWiFiç½‘ç»œç¯å¢ƒä¸­ï¼Œå›¾ç‰‡å·²ç¦æ­¢åŠ è½½");
 				}
 				else{
 					new ImageDownloadTask(selfie,user.getSelfie().getFilename())
 					.execute(user.getSelfie().getFileUrl());
-					sendToast("´ÓÍøÂç¼ÓÔØÍ¼Æ¬ÖĞ");
+					sendToast("ä»ç½‘ç»œåŠ è½½å›¾ç‰‡ä¸­");
 				}
 			}*/
 			
@@ -146,23 +146,23 @@ public class User_Info extends Activity implements OnClickListener{
 			flag=false;
 			break;
 		case R.id.nickname:
-			intent.putExtra("title", "êÇ³Æ");
+			intent.putExtra("title", "æ˜µç§°");
 			intent.putExtra("content",nickname_tv.getText().toString());
 			break;
 		case R.id.gender:
-			intent.putExtra("title", "ĞÔ±ğ");
+			intent.putExtra("title", "æ€§åˆ«");
 			intent.putExtra("content",gender_tv.getText().toString());
 			break;
 		case R.id.position:
-			intent.putExtra("title", "µØÇø");
+			intent.putExtra("title", "åœ°åŒº");
 			intent.putExtra("content",position_tv.getText().toString());
 			break;
 		case R.id.introduction:
-			intent.putExtra("title", "¸öÈË¼ò½é");
+			intent.putExtra("title", "ä¸ªäººç®€ä»‹");
 			intent.putExtra("content",introduction_tv.getText().toString());
 			break;
 		case R.id.realname:
-			intent.putExtra("title", "ÕæÊµĞÕÃû");
+			intent.putExtra("title", "çœŸå®å§“å");
 			intent.putExtra("content",realname_tv.getText().toString());
 			break;
 		default :
@@ -174,23 +174,23 @@ public class User_Info extends Activity implements OnClickListener{
 		}
 	}
 	
-	/*Òì²½¶àÏß³Ì¼ÓÔØÍ¼Æ¬×ÊÔ´*/
+	/*å¼‚æ­¥å¤šçº¿ç¨‹åŠ è½½å›¾ç‰‡èµ„æº*/
 	class ImageDownloadTask extends AsyncTask<String,Void,Bitmap> {
 		private ImageView mImageView;
 		
 		@Override
 		protected Bitmap doInBackground(String... params) {
-			Bitmap bitmap = null;    //´ı·µ»ØµÄ½á¹û
-			String url = params[0];  //»ñÈ¡URL
-			URLConnection connection;   //ÍøÂçÁ¬½Ó¶ÔÏó
-			InputStream is;    //Êı¾İÊäÈëÁ÷
+			Bitmap bitmap = null;    //å¾…è¿”å›çš„ç»“æœ
+			String url = params[0];  //è·å–URL
+			URLConnection connection;   //ç½‘ç»œè¿æ¥å¯¹è±¡
+			InputStream is;    //æ•°æ®è¾“å…¥æµ
 			BitmapFactory.Options opt = new BitmapFactory.Options(); 
 			opt.inSampleSize = 1;
 			try {
 				connection = new URL(url).openConnection();
-				is = connection.getInputStream();   //»ñÈ¡ÊäÈëÁ÷
+				is = connection.getInputStream();   //è·å–è¾“å…¥æµ
 				BufferedInputStream buf = new BufferedInputStream(is);
-				//½âÎöÊäÈëÁ÷
+				//è§£æè¾“å…¥æµ
 				bitmap = BitmapFactory.decodeStream(buf,null,opt);
 				is.close();
 				buf.close();
@@ -199,29 +199,29 @@ public class User_Info extends Activity implements OnClickListener{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			//·µ»Ø¸øºóÃæµ÷ÓÃµÄ·½·¨
+			//è¿”å›ç»™åé¢è°ƒç”¨çš„æ–¹æ³•
 			return bitmap;
 		}
 		
 		ImageDownloadTask(ImageView mImageView){
-			//ÖØÔØ¹¹Ôìº¯Êı£¬»ñÈ¡¿Ø¼ş
+			//é‡è½½æ„é€ å‡½æ•°ï¼Œè·å–æ§ä»¶
 			this.mImageView=mImageView;
 		}
 
 		@Override
 		protected void onPreExecute() {
-			//¼ÓÔØÇ°UI²¼¾Ö
+			//åŠ è½½å‰UIå¸ƒå±€
 			
 		}
 
 		@Override
 		protected void onPostExecute(Bitmap result) {
-			//¼ÓÔØºóUI²¼¾Ö
+			//åŠ è½½åUIå¸ƒå±€
 			mImageView.setImageBitmap(result);
 		}
 	}
 	
-	/*µ÷ÓÃÏà²á*/
+	/*è°ƒç”¨ç›¸å†Œ*/
     private void OpenAlbum(){
     	Intent i = new Intent(
 				Intent.ACTION_PICK,
@@ -251,9 +251,9 @@ public class User_Info extends Activity implements OnClickListener{
 			mPhotoFile = new File(picturePath);
 			Bitmap photo=BitmapFactory.decodeFile(picturePath);
 			Bitmap compress_bitmap=compressImage(photo);
-			//½«Ñ¹ËõºóµÄÍ¼Æ¬´æµ½cacheÄÚ
+			//å°†å‹ç¼©åçš„å›¾ç‰‡å­˜åˆ°cacheå†…
 			saveImageToGallery(User_Info.this, compress_bitmap, mPhotoFile.getName().toString());
-			//»ñÈ¡Ñ¹ËõºóµÄÎÄ¼ş
+			//è·å–å‹ç¼©åçš„æ–‡ä»¶
 			mPhotoFile = new File(Environment.getExternalStorageDirectory()
 					+ "/cache/" + mPhotoFile.getName().toString());
 			//sendToast(picturePath);
@@ -275,45 +275,45 @@ public class User_Info extends Activity implements OnClickListener{
 					    @Override
 					    public void done(BmobException e) {
 					        if(e==null){
-					            sendToast("Í·ÏñÉÏ´«³É¹¦");
+					            sendToast("å¤´åƒä¸Šä¼ æˆåŠŸ");
 					            Intent intent = new Intent(User_Info.this,User_Info.class);
 								startActivity(intent);
 								finish();
 					        }else{
-					        	sendToast("ÉÏ´«Ê§°Ü:" + e.getErrorCode()+e.getMessage());
+					        	sendToast("ä¸Šä¼ å¤±è´¥:" + e.getErrorCode()+e.getMessage());
 					        }
 					    }
 					});
 		
 				}
 				else{
-					sendToast("ÉÏ´«Í¼Æ¬Ê§°Ü£¡"+e.getErrorCode()+e.getMessage());
+					sendToast("ä¸Šä¼ å›¾ç‰‡å¤±è´¥ï¼"+e.getErrorCode()+e.getMessage());
 				}
 			}
     		
     	});
     } 
 	
-	/*Ñ¹ËõÍ¼Æ¬*/
+	/*å‹ç¼©å›¾ç‰‡*/
 	public static Bitmap compressImage(Bitmap image) {  
 		  
 	    ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-	    image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// ÖÊÁ¿Ñ¹Ëõ·½·¨£¬ÕâÀï100±íÊ¾²»Ñ¹Ëõ£¬°ÑÑ¹ËõºóµÄÊı¾İ´æ·Åµ½baosÖĞ  
+	    image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// è´¨é‡å‹ç¼©æ–¹æ³•ï¼Œè¿™é‡Œ100è¡¨ç¤ºä¸å‹ç¼©ï¼ŒæŠŠå‹ç¼©åçš„æ•°æ®å­˜æ”¾åˆ°baosä¸­  
 	    int options = 90;  
 	  
-	    while (baos.toByteArray().length / 1024 > 100) { // Ñ­»·ÅĞ¶ÏÈç¹ûÑ¹ËõºóÍ¼Æ¬ÊÇ·ñ´óÓÚ100kb,´óÓÚ¼ÌĞøÑ¹Ëõ  
-	        baos.reset(); // ÖØÖÃbaos¼´Çå¿Õbaos  
-	        image.compress(Bitmap.CompressFormat.JPEG, options, baos);// ÕâÀïÑ¹Ëõoptions%£¬°ÑÑ¹ËõºóµÄÊı¾İ´æ·Åµ½baosÖĞ  
-	        options -= 10;// Ã¿´Î¶¼¼õÉÙ10  
+	    while (baos.toByteArray().length / 1024 > 100) { // å¾ªç¯åˆ¤æ–­å¦‚æœå‹ç¼©åå›¾ç‰‡æ˜¯å¦å¤§äº100kb,å¤§äºç»§ç»­å‹ç¼©  
+	        baos.reset(); // é‡ç½®baoså³æ¸…ç©ºbaos  
+	        image.compress(Bitmap.CompressFormat.JPEG, options, baos);// è¿™é‡Œå‹ç¼©options%ï¼ŒæŠŠå‹ç¼©åçš„æ•°æ®å­˜æ”¾åˆ°baosä¸­  
+	        options -= 10;// æ¯æ¬¡éƒ½å‡å°‘10  
 	    }  
-	    ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// °ÑÑ¹ËõºóµÄÊı¾İbaos´æ·Åµ½ByteArrayInputStreamÖĞ  
-	    Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// °ÑByteArrayInputStreamÊı¾İÉú³ÉÍ¼Æ¬  
+	    ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// æŠŠå‹ç¼©åçš„æ•°æ®baoså­˜æ”¾åˆ°ByteArrayInputStreamä¸­  
+	    Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// æŠŠByteArrayInputStreamæ•°æ®ç”Ÿæˆå›¾ç‰‡  
 	    return bitmap;  
 	} 
 	
-	/*±£´æÍ¼Æ¬µ½»º´æÎÄ¼ş¼Ğ*/
+	/*ä¿å­˜å›¾ç‰‡åˆ°ç¼“å­˜æ–‡ä»¶å¤¹*/
 	public void saveImageToGallery(Context context, Bitmap bmp, String fileName) {
-	    // Ê×ÏÈ±£´æÍ¼Æ¬
+	    // é¦–å…ˆä¿å­˜å›¾ç‰‡
 	    File appDir = new File(Environment.getExternalStorageDirectory(), "cache");
 	    if (!appDir.exists()) {
 	        appDir.mkdir();
@@ -331,7 +331,7 @@ public class User_Info extends Activity implements OnClickListener{
 	        e.printStackTrace();
 		}
 	    
-	    // Æä´Î°ÑÎÄ¼ş²åÈëµ½ÏµÍ³Í¼¿â
+	    // å…¶æ¬¡æŠŠæ–‡ä»¶æ’å…¥åˆ°ç³»ç»Ÿå›¾åº“
 	    try {
 	        MediaStore.Images.Media.insertImage(context.getContentResolver(),
 					file.getAbsolutePath(), fileName, null);
@@ -339,11 +339,11 @@ public class User_Info extends Activity implements OnClickListener{
 	        e.printStackTrace();
 	    }
 	    
-	    // ×îºóÍ¨ÖªÍ¼¿â¸üĞÂ
+	    // æœ€åé€šçŸ¥å›¾åº“æ›´æ–°
 	    context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
 	}
 	
-	/*ÅĞ¶Ïµ±Ç°ÊÇ·ñÎªWiFiÍøÂç*/
+	/*åˆ¤æ–­å½“å‰æ˜¯å¦ä¸ºWiFiç½‘ç»œ*/
 	public boolean isWifi(Context mContext) {  
 	    ConnectivityManager connectivityManager = (ConnectivityManager) mContext  
 	    		.getSystemService(Context.CONNECTIVITY_SERVICE);  
