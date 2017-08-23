@@ -60,7 +60,7 @@
         AppKey="3314785390"
         AppSecret="daa714dffe4d165b8b9de7e63d8cfa8a"
         RedirectUrl="http://www.naughtycatt.com"
-        ShareByAppClient="true"
+        ShareByAppClient="false"
 		ShareByWebApi = "false"
         Enable="true" />
 

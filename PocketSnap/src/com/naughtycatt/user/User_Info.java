@@ -97,27 +97,7 @@ public class User_Info extends Activity implements OnClickListener{
 		}
 		else{
 			//加载头像
-			String wifi = preferences.getString("WIFI_MODE", null);
-			
-			/*Bitmap cache_addr=getDiskBitmap(Environment.getExternalStorageDirectory()
-					+ "/cache/"
-					+user.getSelfie().getFilename());
-			if(cache_addr!=null){//缓存中存在该图片则从缓存加载
-				selfie.setImageBitmap(cache_addr);
-				sendToast("从缓存加载图片中");
-			}
-			else{
-				if(!isWifi(MainActivity.this)&&wifi.equals("YES")){
-					sendToast("当前处于非WiFi网络环境中，图片已禁止加载");
-				}
-				else{
-					new ImageDownloadTask(selfie,user.getSelfie().getFilename())
-					.execute(user.getSelfie().getFileUrl());
-					sendToast("从网络加载图片中");
-				}
-			}*/
-			
-			
+			String wifi = preferences.getString("WIFI_MODE", null);	
 			if(!isWifi(User_Info.this)&&wifi.equals("YES")){
 			}
 			else{
@@ -132,7 +112,9 @@ public class User_Info extends Activity implements OnClickListener{
 		realname_tv.setText(user.getRealname());
 		email_tv.setText(user.getEmail());
 		String phone=user.getMobilePhoneNumber();
-		phone=phone.substring(0, 3)+"****"+phone.substring(7, 11);
+		if(user.getMobilePhoneNumberVerified()==true){
+			phone=phone.substring(0, 3)+"****"+phone.substring(7, 11);
+		}
 		phone_tv.setText(phone);
 	}
 	

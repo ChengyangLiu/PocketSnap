@@ -681,13 +681,13 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 					if(size<=1000){
 						bitmapOptions.inSampleSize = 1;
 					}
-					else if(size>1000){
+					else if(size<=2000){
 						bitmapOptions.inSampleSize = 2;
 					}
-					else if(size>2000){
+					else if(size<=3000){
 						bitmapOptions.inSampleSize = 4;
 					}
-					else if(size>4000){
+					else if(size<=5000){
 						bitmapOptions.inSampleSize = 8;
 					}
 					else{
@@ -716,13 +716,13 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 				if(size<=1000){
 					bitmapOptions.inSampleSize = 1;
 				}
-				else if(size>1000){
+				else if(size<=2000){
 					bitmapOptions.inSampleSize = 2;
 				}
-				else if(size>2000){
+				else if(size<=3000){
 					bitmapOptions.inSampleSize = 4;
 				}
-				else if(size>4000){
+				else if(size<=5000){
 					bitmapOptions.inSampleSize = 8;
 				}
 				else{
@@ -1134,10 +1134,10 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 			else if(size<=1000){
 				opt.inSampleSize = 2;
 			}
-			else if(size<=2000){
+			else if(size<=2400){
 				opt.inSampleSize = 4;
 			}
-			else if(size<=4000){
+			else if(size<=5000){
 				opt.inSampleSize = 8;
 			}
 			else{
