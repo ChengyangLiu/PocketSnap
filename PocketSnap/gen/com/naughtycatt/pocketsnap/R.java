@@ -475,55 +475,49 @@ sina web
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     
 
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
-
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     
- API 11 theme customizations can go here. 
 
         Base application theme for API 14+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
     
- API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
          */
-        public static final int AppTheme=0x7f080001;
+        public static final int AppTheme=0x7f080002;
+        public static final int actionbar_def_style=0x7f080001;
         /**  共用层样式 
          */
-        public static final int base_layout=0x7f080003;
+        public static final int base_layout=0x7f080004;
         /**  view分割线样式 
          */
-        public static final int bg_line=0x7f08000a;
+        public static final int bg_line=0x7f08000b;
         /**  下圆角样式 
          */
-        public static final int bottom_layout=0x7f080006;
+        public static final int bottom_layout=0x7f080007;
         /**  文本右边箭头样式 
          */
-        public static final int img_arrow=0x7f080009;
+        public static final int img_arrow=0x7f08000a;
         /** 无圆角样式  
          */
-        public static final int mid_layout=0x7f080005;
+        public static final int mid_layout=0x7f080006;
         /**  等待框样式 
          */
-        public static final int progress_dialog=0x7f08000b;
+        public static final int progress_dialog=0x7f08000c;
         /**  全圆角样式 
          */
-        public static final int single_layout=0x7f080007;
+        public static final int single_layout=0x7f080008;
         /**  上圆角样式 
          */
-        public static final int top_layout=0x7f080004;
+        public static final int top_layout=0x7f080005;
         /**  textview样式 
          */
-        public static final int usertext=0x7f080008;
+        public static final int usertext=0x7f080009;
         /**  最外层样式 
          */
-        public static final int wrap_layout=0x7f080002;
+        public static final int wrap_layout=0x7f080003;
     }
 }

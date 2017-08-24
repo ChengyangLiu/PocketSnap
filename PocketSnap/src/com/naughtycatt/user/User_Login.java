@@ -22,6 +22,7 @@ import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.sina.weibo.WeiboUtilListener;
+import cn.sharesdk.tencent.qq.QQ;
 
 import com.naughtycatt.javabean._User;
 import com.naughtycatt.javabean.third_part;
@@ -54,28 +55,39 @@ public class User_Login extends Activity {
 	private LinearLayout qq_ll;
 	private Dialog progressDialog;
 	private Platform weibo= ShareSDK.getPlatform(SinaWeibo.NAME);
-	private List<Map.Entry> entry;
-	private String str="";
+	private Platform qq= ShareSDK.getPlatform(QQ.NAME);
 	private Handler handler=new Handler(){
 		@Override  
 		public void handleMessage(Message msg) {  
+			String snsType,accessToken,expiresIn,userId;
+			Long tmp;
 	        switch (msg.arg1) {  
-	        case 1:  // 成功  
-	        	String snsType,accessToken,expiresIn,userId;
-	        	snsType="weibo";
+	        case 1:  // 失败  
+	        	sendToast("出现异常，登录失败");
+	        	break;
+	        case 2:  // 取消  
+	        	break;  
+	        case 3:  // 微博
+	        	dialog_wait("登录中，请稍后···");
+	        	snsType=BmobUser.BmobThirdUserAuth.SNS_TYPE_WEIBO;
 	        	accessToken=weibo.getDb().getToken();
-	        	Long tmp;
 	        	tmp=weibo.getDb().getExpiresIn();
 	        	expiresIn=tmp.toString();
 	        	userId=weibo.getDb().getUserId();
 	        	login_third_part(snsType,accessToken,expiresIn,userId);
+	        	//dialog_wait(snsType+"\n"+accessToken+"\n"+expiresIn+"\n"+userId);
 	            break;  
-	        case 2:  // 失败  
-	        	dialog_wait("出现异常，登录失败");
-	        	break;
-	          
-	        case 3:  // 取消  
-	        	break;  
+	        case 4:  //QQ
+	        	dialog_wait("登录中，请稍后···");
+	        	snsType=BmobUser.BmobThirdUserAuth.SNS_TYPE_QQ;
+	        	accessToken=qq.getDb().getToken();
+	        	tmp=qq.getDb().getExpiresIn();
+	        	expiresIn=tmp.toString();
+	        	userId=qq.getDb().getUserId();
+	        	login_third_part(snsType,accessToken,expiresIn,userId);
+	        	//dialog_wait(snsType+"\n"+accessToken+"\n"+expiresIn+"\n"+userId);
+	            break;  
+	                  
 	        }  
 	    }  
 	};  
@@ -119,7 +131,7 @@ public class User_Login extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				sendToast("功能开发中···");
+				sendToast("开发经费不足···");
 			}
 		});
 		
@@ -128,22 +140,14 @@ public class User_Login extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				weibo.SSOSetting(true);
+				weibo.SSOSetting(false);
 				//回调信息，可以在这里获取基本的授权返回的信息，但是注意如果做提示和UI操作要传到主线程handler里去执行
 				weibo.setPlatformActionListener(new PlatformActionListener() {
 
 				@Override
 				public void onError(Platform arg0, int arg1, Throwable arg2) {
 					Message msg = new Message();  
-			        msg.arg1 = 2;   
-			        msg.obj=arg0;
-			        handler.sendMessage(msg);  
-				}
-
-				@Override
-				public void onComplete(Platform arg0, int arg1, HashMap<String, Object> res) {
-					Message msg = new Message();  
-			        msg.arg1 = 1;  
+			        msg.arg1 = 1;   
 			        msg.obj=arg0;
 			        handler.sendMessage(msg);  
 				}
@@ -152,9 +156,17 @@ public class User_Login extends Activity {
 				public void onCancel(Platform arg0, int arg1) {
 					Message msg = new Message();  
 					msg.obj=arg0;
-			        msg.arg1 = 3;  
+			        msg.arg1 = 2;  
 			        handler.sendMessage(msg);  
 
+				}
+				
+				@Override
+				public void onComplete(Platform arg0, int arg1, HashMap<String, Object> res) {
+					Message msg = new Message();  
+			        msg.arg1 = 3;  
+			        msg.obj=arg0;
+			        handler.sendMessage(msg);  
 				}
 
 				});
@@ -167,13 +179,46 @@ public class User_Login extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				sendToast("功能开发中···");
+				qq.SSOSetting(false);
+				//回调信息，可以在这里获取基本的授权返回的信息，但是注意如果做提示和UI操作要传到主线程handler里去执行
+				qq.setPlatformActionListener(new PlatformActionListener() {
+				
+				@Override
+				public void onError(Platform arg0, int arg1, Throwable arg2) {
+					Message msg = new Message();  
+			        msg.arg1 = 1;   
+			        msg.obj=arg0;
+			        handler.sendMessage(msg);  
+				}
+
+				@Override
+				public void onCancel(Platform arg0, int arg1) {
+					Message msg = new Message();  
+					msg.obj=arg0;
+			        msg.arg1 = 2;  
+			        handler.sendMessage(msg);  
+
+				}
+				
+				@Override
+				public void onComplete(Platform arg0, int arg1, HashMap<String, Object> res) {
+					Message msg = new Message();  
+					 
+			        msg.arg1 = 4;  
+			        msg.obj=arg0;
+			        handler.sendMessage(msg);  
+				}
+
+				});
+				qq.authorize();//单独授权
+				//qq.showUser(null);
 			}
 		});
 	}
 	
-	
+	/*通过第三方注册并登录*/
 	private void login_third_part(String snsType,String accessToken,String expiresIn,String userId){
+		BmobUser.logOut();
 		BmobThirdUserAuth authInfo = new BmobThirdUserAuth(snsType, accessToken, expiresIn, userId);
 	    BmobUser.loginWithAuthData(authInfo, new LogInListener<JSONObject>() {
 
@@ -185,7 +230,7 @@ public class User_Login extends Activity {
 	    });
 	}
  
-    
+    /*通过用户名和密码普通登录*/
 	private void login(String username, String password){
 		BmobUser bu2 = new BmobUser();
 		bu2.setUsername(username);
@@ -220,6 +265,7 @@ public class User_Login extends Activity {
 		        if(e==null){
 		        	Intent intent = new Intent(User_Login.this,MainActivity.class);
 					startActivity(intent);
+					dialog_cancel();
 					sendToast("登录成功");
 					finish();
 		        }else{
@@ -239,11 +285,13 @@ public class User_Login extends Activity {
 		progressDialog = new Dialog(User_Login.this,R.style.progress_dialog);
         progressDialog.setContentView(R.layout.dialog);
         progressDialog.setCancelable(true);
-        progressDialog.setCanceledOnTouchOutside(true);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         TextView tv = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);
         tv.setText(msg);
         progressDialog.show();
 	}
-
+	public void dialog_cancel(){
+        progressDialog.dismiss();
+    }
 }
